@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<odoo>
+
+  <!--Action-->
+  <record id="car_action" model="ir.actions.act_window">
+    <field name="name">Cars</field>
+    <field name="res_model">flexwheels.car</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+            No car's found. Please acquire one!
+          </p>
+    </field>
+  </record>
+
+  <!--List View-->
+  <record id="car_model_view_tree" model="ir.ui.view">
+    <field name="name">flexwheels.car.tree</field>
+    <field name="model">flexwheels.car</field>
+    <field name="arch" type="xml">
+      <tree string="Channel">
+        <field name="model" string="Name"/>
+        <field name="brand" string="Brand"/>
+        <field name="variant" string="Variant"/>
+        <field name="color" string="Color"/>
+        <field name="mileage" string="Mileage"/>
+        <field name="price" string="Price"/>
+        <field name="deposit_amount" string="Deposit"/>
+        <field name="fuel_type" string="Fuel Type"/>
+        <field name="transmission" string="Transmission"/>
+        <field name="seating_capacity" string="Seating Capacity"/>
+        <field name="location" string="Location"/>
+        <field name="year_of_manufacturing" string="Model"/>
+      </tree>
+    </field>
+  </record>
+
+  <!-- Form View-->
+  <record id="car_model_form" model="ir.ui.view">
+    <field name="name">flexwheels.car.form</field>
+    <field name="model">flexwheels.car</field>
+    <field name="arch" type="xml">
+      <form string="Idea form">
+        <sheet>
+          <group>
+            <h1>
+              <field name="model" nolabel="1"/>
+            </h1>
+            <group colspan="2">
+              <group cols="1">
+                <field name="brand"/>
+                <field name="license_plate_number"/>
+              </group>
+              <group cols="2">
+                <field name="price"/>
+                <field name="location"/>
+              </group>
+            </group>
+          </group>
+
+          <!--Description-->
+          <notebook>
+            <page string="Description">
+              <group>
+                <field name="variant"/>
+                <field name="color"/>
+                <field name="year_of_manufacturing"/>
+                <field name="mileage"/>
+                <field name="transmission"/>
+                <field name="fuel_type"/>
+                <field name="seating_capacity"/>
+                <field name="additional_features"/>
+              </group>
+            </page>
+
+            <!--Terms & Conditions-->
+            <page string="Terms and Conditions">
+              <group>
+                <field name="deposit_amount"/>
+                <field name="terms_and_conditions"/>
+              </group>
+            </page>
+          </notebook>
+        </sheet>
+
+        <!--Chatter-->
+        <div class="oe_chatter">
+          <field name="activity_ids"/>
+          <field name="activity_state"/>
+          <field name="message_follower_ids" widget="mail_followers"/>
+          <field name="message_ids" widget="mail_thread"/>
+        </div>
+      </form>
+    </field>
+  </record>
+
+  <!--Search View-->
+  <record id="car_model_search" model="ir.ui.view">
+    <field name="name">flexwheels.car.search</field>
+    <field name="model">flexwheels.car</field>
+    <field name="arch" type="xml">
+      <search>
+        <!--Search Labels-->
+        <field name="model" string="Name"/>
+        <field name="brand" string="Brand"/>
+        <field name="variant" string="Variant"/>
+        <field name="color" string="Color"/>
+        <field name="mileage" string="Mileage"/>
+        <field name="price" string="Price"/>
+        <field name="fuel_type" string="Fuel Type"/>
+        <field name="transmission" string="Transmission"/>
+        <field name="seating_capacity" string="Seating Capacity"/>
+        <field name="location" string="Location"/>
+        <field name="year_of_manufacturing" string="Model"/>
+        <!--Filters-->
+        <!-- <filter string="Availability" name="state" domain="['|', ('state','=','New'), ('state', '=','Offer Received')]"/> -->
+        <!--Groupby-->
+        <group>
+          <filter string="Brand" name="brand" context="{'group_by':'brand'}"/>
+          <filter string="Name" name="model" context="{'group_by':'model'}"/>
+          <filter string="Variant" name="variant" context="{'group_by':'variant'}"/>
+          <filter string="Color" name="color" context="{'group_by':'color'}"/>
+          <filter string="Fuel Type" name="fuel_type" context="{'group_by':'fuel_type'}"/>
+          <filter string="Transmission" name="transmission" context="{'group_by':'transmission'}"/>
+          <filter string="Seating Capacity" name="seating_capacity" context="{'group_by':'seating_capacity'}"/>
+          <filter string="Location" name="location" context="{'group_by':'location'}"/>
+          <filter string="Model" name="year_of_manufacturing" context="{'group_by':'year_of_manufacturing'}"/>
+          <filter string="Mileage" name="mileage" context="{'group_by':'mileage'}"/>
+        </group>
+      </search>
+    </field>
+  </record>
+</odoo>

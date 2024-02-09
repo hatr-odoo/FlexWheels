@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+flexwheels.access_flexwheels_car,access_flexwheels_car,flexwheels.model_flexwheels_car,base.group_user,1,1,1,1
+flexwheels.access_flexwheels_customer,access_flexwheels_customer,flexwheels.model_flexwheels_customer,base.group_user,1,1,1,1
+flexwheels.access_flexwheels_booking,access_flexwheels_booking,flexwheels.model_flexwheels_booking,base.group_user,1,1,1,1
+flexwheels.access_flexwheels_invoice,access_flexwheels_invoice,flexwheels.model_flexwheels_invoice,base.group_user,1,1,1,1

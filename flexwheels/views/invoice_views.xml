@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<odoo>
+
+  <!--Action-->
+  <record id="invoice_action" model="ir.actions.act_window">
+    <field name="name">Invoices</field>
+    <field name="res_model">flexwheels.invoice</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+            No record found. Let's create one!
+          </p>
+    </field>
+  </record>
+</odoo>
