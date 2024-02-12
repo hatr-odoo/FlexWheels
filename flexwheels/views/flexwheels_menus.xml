@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <odoo>
-    <menuitem id="flexwheels_menu_root" name="FlexWheels">
+    <menuitem id="flexwheels_menu_root" name="FlexWheels" web_icon="flexwheels,assets/flexwheels_icon.png">
         <menuitem id="flexwheels_first_level_menu_1" name="Menu">
             <menuitem id="car_menu_action" name="My Cars" action="car_action"/>
             <menuitem id="customer_menu_action" name="My Customers" action="customer_action"/>

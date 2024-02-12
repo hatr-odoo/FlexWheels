@@ -7,7 +7,7 @@ class flexwheelsCar(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     brand=fields.Char(required=True, tracking=True)
-    model=fields.Char(required=True, tracking=True)
+    name=fields.Char(required=True, tracking=True)
     year_of_manufacturing= fields.Integer(required=True)
     deposit_amount=fields.Float(required=True)
     variant=fields.Char(required=True)
@@ -42,4 +42,4 @@ class flexwheelsCar(models.Model):
         tracking=True
     )
     additional_features=fields.Text()
-    terms_and_conditions=fields.Text(required=True, readonly=True)
+    terms_and_conditions=fields.Text(required=True, readonly=True, default="Drive safe...")

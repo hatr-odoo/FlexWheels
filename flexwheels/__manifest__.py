@@ -7,8 +7,6 @@
     'description': """
     Description text
     """,
-    'application': True,
-    'installable': True,
     'data': [
         'security/ir.model.access.csv',
         'views/car_views.xml',
@@ -16,5 +14,8 @@
         'views/booking_views.xml',
         'views/invoice_views.xml',
         'views/flexwheels_menus.xml',
-    ]
+    ],
+    'application': True,
+    'installable': True,
+    'license': 'OEEL-1'
 }

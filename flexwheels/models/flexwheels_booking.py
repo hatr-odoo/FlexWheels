@@ -1,13 +1,13 @@
 from odoo import fields, models
-from dateutil.relativedelta import relativedelta
 
 class flexwheelsCustomer(models.Model):
     _name = "flexwheels.booking"
     _description = "Flexwheels Booking"
     # _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    customer_id=fields.Integer()
-    vehicle_id=fields.Integer()
+    customer=fields.Many2one('flexwheels.customer', string="Customer", required=True)
+    car=fields.Many2one('flexwheels.car', string="Car", required=True)
+    booking_information=fields.Date(required=True, default=fields.Date.today())
     pickup_location=fields.Selection(
         string='Pickup Location',
         selection=[('ahmedabad', 'Ahmedabad'), ('gandhinagar', 'Gandhinagar'), ('vadodara', 'Vadodara'), ('surat', 'Surat'), ('rajkot', 'Rajkot')],
@@ -16,4 +16,4 @@ class flexwheelsCustomer(models.Model):
     )
     pickup_information=fields.Datetime(required=True)
     drop_information=fields.Datetime(required=True)
-    amount=fields.Float(required=True, readonly=True)
+    amount=fields.Float(required=True)

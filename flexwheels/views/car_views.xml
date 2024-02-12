@@ -19,7 +19,7 @@
     <field name="model">flexwheels.car</field>
     <field name="arch" type="xml">
       <tree string="Channel">
-        <field name="model" string="Name"/>
+        <field name="name" string="Name"/>
         <field name="brand" string="Brand"/>
         <field name="variant" string="Variant"/>
         <field name="color" string="Color"/>
@@ -44,7 +44,7 @@
         <sheet>
           <group>
             <h1>
-              <field name="model" nolabel="1"/>
+              <field name="name" nolabel="1"/>
             </h1>
             <group colspan="2">
               <group cols="1">
@@ -101,7 +101,7 @@
     <field name="arch" type="xml">
       <search>
         <!--Search Labels-->
-        <field name="model" string="Name"/>
+        <field name="name" string="Name"/>
         <field name="brand" string="Brand"/>
         <field name="variant" string="Variant"/>
         <field name="color" string="Color"/>
@@ -117,7 +117,7 @@
         <!--Groupby-->
         <group>
           <filter string="Brand" name="brand" context="{'group_by':'brand'}"/>
-          <filter string="Name" name="model" context="{'group_by':'model'}"/>
+          <filter string="Name" name="name" context="{'group_by':'name'}"/>
           <filter string="Variant" name="variant" context="{'group_by':'variant'}"/>
           <filter string="Color" name="color" context="{'group_by':'color'}"/>
           <filter string="Fuel Type" name="fuel_type" context="{'group_by':'fuel_type'}"/>

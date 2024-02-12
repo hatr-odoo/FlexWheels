@@ -11,4 +11,51 @@
           </p>
     </field>
   </record>
+
+  <!--List View-->
+  <record id="booking_model_view_tree" model="ir.ui.view">
+    <field name="name">flexwheels.booking.tree</field>
+    <field name="model">flexwheels.booking</field>
+    <field name="arch" type="xml">
+      <tree string="Channel">
+        <field name="customer" string="Customer"/>
+        <field name="car" string="Car"/>
+        <field name="booking_information" string="Booking Information"/>
+        <field name="pickup_location" string="Pickup Location"/>
+        <field name="pickup_information" string="Pickup Information"/>
+        <field name="drop_information" string="Drop Information"/>
+        <field name="amount" string="Amount"/>
+      </tree>
+    </field>
+  </record>
+
+  <!-- Form View-->
+  <record id="car_model_form" model="ir.ui.view">
+    <field name="name">flexwheels.booking.form</field>
+    <field name="model">flexwheels.booking</field>
+    <field name="arch" type="xml">
+      <form string="Idea form">
+        <sheet>
+          <group>
+            <group colspan="2">
+              <group cols="1">
+                <field name="customer"/>
+                <field name="pickup_information"/>
+              </group>
+              <group cols="2">
+                <field name="booking_information"/>
+                <field name="drop_information"/>
+              </group>
+            </group>
+          </group>
+          <group>
+            <field name="car" string="Car"/>
+            <field name="pickup_location" string="Pickup Location"/>
+            <field name="amount" string="Amount"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
 </odoo>

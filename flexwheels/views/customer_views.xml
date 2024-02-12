@@ -53,6 +53,7 @@
                 <field name="occupation"/>
                 <field name="emergency_contact_number"/>
                 <field name="address"/>
+                <field name="state"/>
               </group>
             </page>
           </notebook>

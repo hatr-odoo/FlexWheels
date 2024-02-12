@@ -12,4 +12,45 @@
           </p>
     </field>
   </record>
+
+    <!--List View-->
+  <record id="invoice_model_view_tree" model="ir.ui.view">
+    <field name="name">flexwheels.invoice.tree</field>
+    <field name="model">flexwheels.invoice</field>
+    <field name="arch" type="xml">
+      <tree string="Channel">
+        <field name="customer" string="Customer"/>
+        <field name="car" string="Car"/>
+        <field name="period_of_service" string="Period of Service"/>
+        <field name="amount" string="Amount"/>
+      </tree>
+    </field>
+  </record>
+
+    <!-- Form View-->
+  <record id="invoice_model_form" model="ir.ui.view">
+    <field name="name">flexwheels.invoice.form</field>
+    <field name="model">flexwheels.invoice</field>
+    <field name="arch" type="xml">
+      <form string="Invoice form">
+        <sheet>
+          <group>
+            <h1>
+              <field name="invoice_number"></field>
+            </h1>
+            <group colspan="2">
+              <group cols="1">
+                <field name="customer"/>
+                <field name="car"/>
+              </group>
+              <group cols="2">
+                <field name="period_of_service"/>
+                <field name="amount"/>
+              </group>
+            </group>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
 </odoo>
