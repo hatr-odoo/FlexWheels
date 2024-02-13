@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import api, fields, models
 
 class flexwheelsCustomer(models.Model):
     _name = "flexwheels.booking"
@@ -14,6 +14,6 @@ class flexwheelsCustomer(models.Model):
         required=True,
         tracking=True
     )
-    pickup_information=fields.Datetime(required=True)
-    drop_information=fields.Datetime(required=True)
+    pickup_information=fields.Date(required=True)
+    drop_information=fields.Date(required=True)
     amount=fields.Float(required=True)

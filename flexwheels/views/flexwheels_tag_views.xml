@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<odoo>
+
+  <!--Action-->
+  <record id="flexwheels_car_tag_action" model="ir.actions.act_window">
+    <field name="name">Car Tags</field>
+    <field name="res_model">flexwheels.car.tag</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+            No record found. Let's create one!
+          </p>
+    </field>
+  </record>
+
+  <!-- List View -->
+  <record id="flexwheels_car_tag_view_tree" model="ir.ui.view">
+    <field name="name">flexwheels.car.tag.tree</field>
+    <field name="model">flexwheels.car.tag</field>
+    <field name="arch" type="xml">
+      <tree string="Channel">
+        <field name="name" string="Car Tag"/>
+        <field name="color" widget="color_picker"/>
+      </tree>
+    </field>
+  </record>
+
+  <!--Form View-->
+  <record id="flexwheels_car_tag_form" model="ir.ui.view">
+    <field name="name">flexwheels.car.tag.form</field>
+    <field name="model">flexwheels.car.tag</field>
+    <field name="arch" type="xml">
+      <form string="Tag form">
+        <sheet>
+          <group>
+              <field name="name"/>
+              <field name="color" widget="color_picker"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+</odoo>
