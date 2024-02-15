@@ -29,7 +29,6 @@
         <field name="fuel_type" string="Fuel Type"/>
         <field name="transmission" string="Transmission"/>
         <field name="seating_capacity" string="Seating Capacity"/>
-        <field name="location" string="Location"/>
         <field name="year_of_manufacturing" string="Model"/>
       </tree>
     </field>
@@ -53,10 +52,11 @@
               <group cols="1">
                 <field name="brand"/>
                 <field name="license_plate_number"/>
+                <field name="is_available"/>
               </group>
               <group cols="2">
                 <field name="price"/>
-                <field name="location"/>
+                <field name="type_of_vehicle"></field>
               </group>
             </group>
           </group>
@@ -66,7 +66,6 @@
             <page string="Description">
               <group>
                 <field name="variant"/>
-                <field name="type_of_vehicle"/>
                 <field name="color"/>
                 <field name="year_of_manufacturing"/>
                 <field name="mileage"/>
@@ -84,17 +83,24 @@
                 <field name="terms_and_conditions"/>
               </group>
             </page>
+
+            <!--Booking History-->
+            <page string="Booking History">
+              <group>
+                <field name="booking_ids"/>
+              </group>
+            </page>
           </notebook>
           </group>
         </sheet>
 
         <!--Chatter-->
-        <!-- <div class="oe_chatter">
+        <div class="oe_chatter">
           <field name="activity_ids"/>
           <field name="activity_state"/>
           <field name="message_follower_ids" widget="mail_followers"/>
           <field name="message_ids" widget="mail_thread"/>
-        </div> -->
+        </div>
       </form>
     </field>
   </record>
@@ -116,7 +122,6 @@
         <field name="transmission" string="Transmission"/>
         <field name="type_of_vehicle"/>
         <field name="seating_capacity" string="Seating Capacity"/>
-        <field name="location" string="Location"/>
         <field name="year_of_manufacturing" string="Model"/>
         <!--Filters-->
         <!-- <filter string="Availability" name="state" domain="['|', ('state','=','New'), ('state', '=','Offer Received')]"/> -->
@@ -129,7 +134,6 @@
           <filter string="Fuel Type" name="fuel_type" context="{'group_by':'fuel_type'}"/>
           <filter string="Transmission" name="transmission" context="{'group_by':'transmission'}"/>
           <filter string="Seating Capacity" name="seating_capacity" context="{'group_by':'seating_capacity'}"/>
-          <filter string="Location" name="location" context="{'group_by':'location'}"/>
           <filter string="Model" name="year_of_manufacturing" context="{'group_by':'year_of_manufacturing'}"/>
           <filter string="Mileage" name="mileage" context="{'group_by':'mileage'}"/>
         </group>

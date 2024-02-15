@@ -4,7 +4,7 @@ from dateutil.relativedelta import relativedelta
 class flexwheelsCustomer(models.Model):
     _name = "flexwheels.customer"
     _description = "Flexwheels Customer"
-    # _inherit = ['mail.thread', 'mail.activity.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name=fields.Char(required=True)
     license=fields.Char(required=True)

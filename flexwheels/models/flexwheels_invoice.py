@@ -4,7 +4,7 @@ from dateutil.relativedelta import relativedelta
 class flexwheelsInvoice(models.Model):
     _name = "flexwheels.invoice"
     _description = "Flexwheels Invoice"
-    # _inherit = ['mail.thread', 'mail.activity.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     
     invoice_number=fields.Integer(required=True, default="11")
     customer=fields.Many2one('flexwheels.customer', string="Customer", required=True)

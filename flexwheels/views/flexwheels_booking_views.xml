@@ -5,6 +5,7 @@
     <field name="name">Bookings</field>
     <field name="res_model">flexwheels.booking</field>
     <field name="view_mode">tree,form</field>
+    <field name="context">{'search_default_state': 1}</field>
     <field name="help" type="html">
       <p class="o_view_nocontent_smiling_face">
             No record found. Let's create one!
@@ -18,13 +19,11 @@
     <field name="model">flexwheels.booking</field>
     <field name="arch" type="xml">
       <tree string="Channel">
-        <field name="customer" string="Customer"/>
-        <field name="car" string="Car"/>
+        <field name="customer_id" string="Customer"/>
+        <field name="car_id" string="Car"/>
         <field name="booking_information" string="Booking Information"/>
-        <field name="pickup_location" string="Pickup Location"/>
-        <field name="pickup_information" string="Pickup Information"/>
         <field name="drop_information" string="Drop Information"/>
-        <field name="amount" string="Amount"/>
+        <field name="billing_amount" string="Billing Amount"/>
       </tree>
     </field>
   </record>
@@ -35,27 +34,51 @@
     <field name="model">flexwheels.booking</field>
     <field name="arch" type="xml">
       <form string="Idea form">
+        <header>
+          <button name="action_confirm" class="btn-primary" type="object" string="Confirm"/>
+          <button name="action_cancel" type="object" string="Cancel"/>
+        </header>
         <sheet>
           <group>
+            <group>
+            <h1>
+              <field name="name"/>
+            </h1>
+            </group>
             <group colspan="2">
               <group cols="1">
-                <field name="customer"/>
-                <field name="pickup_information"/>
+                <field name="customer_id"/>
+                <field name="booking_information"/>
+                <field name="car_id" string="Car"/>
+                <field name="billing_amount" string="Billing Amount"/>
               </group>
               <group cols="2">
-                <field name="booking_information"/>
+                <field name="state"/>
                 <field name="drop_information"/>
               </group>
             </group>
           </group>
-          <group>
-            <field name="car" string="Car"/>
-            <field name="pickup_location" string="Pickup Location"/>
-            <field name="amount" string="Amount"/>
-          </group>
         </sheet>
+        
+        <!-- chatter -->
+        <div class="oe_chatter">
+          <field name="activity_ids"/>
+          <field name="activity_state"/>
+          <field name="message_follower_ids" widget="mail_followers"/>
+          <field name="message_ids" widget="mail_thread"/>
+        </div>
       </form>
     </field>
   </record>
 
+  <!-- Search View -->
+  <record id="flexwheels_booking_search" model="ir.ui.view">
+    <field name="name">flexwheels.booking.search</field>
+    <field name="model">flexwheels.booking</field>
+    <field name="arch" type="xml">
+      <search string="Property Search">
+        <filter string="Status" name="state" domain="['!',('state','=','cancelled')]"/>
+      </search>
+    </field>
+  </record>
 </odoo>

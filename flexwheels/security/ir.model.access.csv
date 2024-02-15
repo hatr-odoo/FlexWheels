@@ -4,3 +4,5 @@ flexwheels.access_flexwheels_customer,access_flexwheels_customer,flexwheels.mode
 flexwheels.access_flexwheels_booking,access_flexwheels_booking,flexwheels.model_flexwheels_booking,base.group_user,1,1,1,1
 flexwheels.access_flexwheels_invoice,access_flexwheels_invoice,flexwheels.model_flexwheels_invoice,base.group_user,1,1,1,1
 flexwheels.access_flexwheels_car_tag,access_flexwheels_car_tag,flexwheels.model_flexwheels_car_tag,base.group_user,1,1,1,1
+flexwheels.access_flexwheels_car_type,access_flexwheels_car_type,flexwheels.model_flexwheels_car_type,base.group_user,1,1,1,1
+flexwheels.access_flexwheels_car_brand,access_flexwheels_car_brand,flexwheels.model_flexwheels_car_brand,base.group_user,1,1,1,1

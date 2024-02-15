@@ -1,64 +1,19 @@
-from odoo import fields, models
+from odoo import api, fields, models
 from dateutil.relativedelta import relativedelta
 
 class flexwheelsCar(models.Model):
     _name = "flexwheels.car"
     _description = "Flexwheels Car"
-    # _inherit = ['mail.thread', 'mail.activity.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    brand=fields.Selection(
-        string="Brand",
-        selection=[
-                ('maruti suzuki', 'Maruti Suzuki'),
-                ('hyundai', 'Hyundai'),
-                ('tata', 'Tata'),
-                ('mahindra', 'Mahindra'),
-                ('kia', 'Kia'),
-                ('honda', 'Honda'),
-                ('toyota', 'Toyota'),
-                ('ford', 'Ford'),
-                ('volkswagen', 'Volkswagen'),
-                ('renault', 'Renault'),
-                ('mg', 'MG'),
-                ('nissan', 'Nissan'),
-                ('skoda', 'Skoda'),
-                ('bmw', 'BMW'),
-                ('mercedes-benz', 'Mercedes-Benz'),
-                ('audi', 'Audi'),
-                ('jeep', 'Jeep'),
-                ('volvo', 'Volvo'),
-                ('land rover', 'Land Rover'),
-                ('jaguar', 'Jaguar'),
-                ('fiat', 'Fiat'),
-                ('mitsubishi', 'Mitsubishi'),
-                ('isuzu', 'Isuzu'),
-                ('porsche', 'Porsche'),
-                ('rolls-royce', 'Rolls-Royce'),
-                ('lamborghini', 'Lamborghini'),
-                ('maserati', 'Maserati'),
-                ('bentley', 'Bentley'),
-                ('ferrari', 'Ferrari'),
-                ('other', 'Other')
-                ],
-        required=True
-    )
+    brand=fields.Many2one('flexwheels.car.brand', string='Brand', required=True)
     name=fields.Char(required=True)
-    type_of_vehicle=fields.Selection(
-        required=True,
-        string="Type",
-        selection=[
-                    ('hatchback', 'Hatchback'),
-                    ('sedan', 'Sedan'),
-                    ('suv', 'SUV'),
-                    ('mpv', 'MPV'),
-                    ('crossover', 'Crossover'),
-                    ('coupe', 'Coupe'),
-                    ('convertible', 'Convertible')
-                ]
-    )
+    type_of_vehicle=fields.Many2one('flexwheels.car.type', string='Type of Vehicle')
+    price_per_km=fields.Float('flexwheels.car.type', related='type_of_vehicle.price_per_km')
     year_of_manufacturing= fields.Integer(required=True)
-    deposit_amount=fields.Float(required=True)
+    deposit_amount=fields.Float(required=True, compute='_compute_deposit_amount')
     variant=fields.Char(required=True)
+    is_available=fields.Boolean(default=True)
     color=fields.Selection(
         string='Color',
         selection=[('white', 'White'),
@@ -74,7 +29,7 @@ class flexwheelsCar(models.Model):
                    ('others', 'Others')],
         required=True,
         default='white',
-
+        tracking=True
     )
     license_plate_number=fields.Char(required=True)
     mileage=fields.Float()
@@ -87,27 +42,28 @@ class flexwheelsCar(models.Model):
                    ('electric', 'Electric'),
                    ('hybrid', 'Hybrid')],
         required=True,
-
+        tracking=True
     )
     transmission=fields.Selection(
         string='Transmission',
         selection=[('manual', 'Manual'), ('automatic', 'Automatic')],
         required=True,
-
+        tracking=True
     )
     seating_capacity=fields.Integer(required=True)
-    price=fields.Float(required=True)
+    price=fields.Float(required=True, string="Price/day", readonly=True, compute='_compute_price')
     active=fields.Boolean(default=True)
-    location=fields.Selection(
-        string='Location',
-        selection=[('ahmedabad', 'Ahmedabad'), 
-                   ('gandhinagar', 'Gandhinagar'), 
-                   ('vadodara', 'Vadodara'), 
-                   ('surat', 'Surat'), 
-                   ('rajkot', 'Rajkot')],
-        required=True,
-
-    )
     additional_features=fields.Text()
     terms_and_conditions=fields.Text(required=True, readonly=True, default="Drive safe...")
     tag_ids=fields.Many2many("flexwheels.car.tag")
+    booking_ids=fields.One2many('flexwheels.booking', 'car_id', string=' ')
+    
+    @api.depends('price', 'year_of_manufacturing')
+    def _compute_deposit_amount(self):
+        for record in self:
+            record.deposit_amount=record.price*2.5
+    
+    @api.depends('type_of_vehicle')
+    def _compute_price(self):
+        for record in self:
+            record.price=record.price_per_km*250
