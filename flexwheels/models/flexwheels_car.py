@@ -57,6 +57,14 @@ class flexwheelsCar(models.Model):
     terms_and_conditions=fields.Text(required=True, readonly=True, default="Drive safe...")
     tag_ids=fields.Many2many("flexwheels.car.tag")
     booking_ids=fields.One2many('flexwheels.booking', 'car_id', string=' ')
+    done_booking_ids=fields.One2many('flexwheels.booking', 'car_id', compute='_compute_done_booking_id', string=" ")
+    
+    @api.depends('booking_ids')
+    def _compute_done_booking_id(self):
+        for record in self:
+            record.done_booking_ids=record.booking_ids.filtered(
+                lambda booking: booking.state=='done'
+            )
     
     @api.depends('price', 'year_of_manufacturing')
     def _compute_deposit_amount(self):

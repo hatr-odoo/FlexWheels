@@ -87,7 +87,7 @@
             <!--Booking History-->
             <page string="Booking History">
               <group>
-                <field name="booking_ids"/>
+                <field name="done_booking_ids"/>
               </group>
             </page>
           </notebook>

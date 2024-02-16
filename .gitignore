@@ -1,3 +1,3 @@
-.gitingore
-/pycache
-/**.pyc
+.gitignore
+/flexwheels/__pycache__/
+/flexwheels/models/__pycache__/

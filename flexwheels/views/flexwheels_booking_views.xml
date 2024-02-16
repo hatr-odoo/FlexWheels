@@ -49,7 +49,7 @@
               <group cols="1">
                 <field name="customer_id"/>
                 <field name="booking_information"/>
-                <field name="car_id" string="Car"/>
+                <field name="car_id" string="Car" domain="[('is_available', '=', True)]"/>
                 <field name="billing_amount" string="Billing Amount"/>
               </group>
               <group cols="2">
