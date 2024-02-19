@@ -1,5 +1,5 @@
 from odoo import api, fields, models
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 class flexwheelsCustomer(models.Model):
     _name = "flexwheels.booking"
@@ -11,6 +11,7 @@ class flexwheelsCustomer(models.Model):
     car_id=fields.Many2one('flexwheels.car', string="Car", required=True)
     price=fields.Float('flexwheels.car', related='car_id.price')
     booking_information=fields.Date(required=True, default=fields.Date.today(), readonly=True)
+    pickup_information=fields.Date(required=True, default=fields.Date.today(), readonly=True)
     drop_information=fields.Date(required=True)
     billing_amount=fields.Float(required=True, compute='_compute_billing_amount')
     state=fields.Selection(
@@ -35,10 +36,10 @@ class flexwheelsCustomer(models.Model):
             else:
                 record.billing_amount = 0
     
-    @api.onchange('car_id')
-    def _onchange_car(self):
-        for record in self:
-            record.car_id.is_available=False
+    # @api.onchange('car_id')
+    # def _onchange_car(self):
+    #     for record in self:
+    #         record.car_id.is_available=False
                    
     def action_confirm(self):
         for record in self:
@@ -52,4 +53,31 @@ class flexwheelsCustomer(models.Model):
             if not record.state=='confirm':
                 record.state='cancelled'
                 return True
-            raise UserError('Confirmed bookings cannot be cancelled.')         
+            raise UserError('Confirmed bookings cannot be cancelled.')
+        
+    @api.constrains('pickup_information')
+    def _check_drop_information(self):
+        for record in self:
+            if record.drop_information < record.pickup_information:
+                raise ValidationError("The drop date cannot be before pickup date")
+        
+    @api.model
+    def create(self, vals):
+        if 'car_id' in vals:
+            car = self.env['flexwheels.car'].browse(vals['car_id'])
+            car.is_available = False
+        return super().create(vals)
+
+    @api.model
+    def write(self, vals):
+        if 'car_id' in vals:
+            old_car_id = self.car_id.id
+            new_car_id = vals['car_id']
+            
+            old_car = self.env['flexwheels.car'].browse(old_car_id)
+            old_car.is_available = True
+
+            new_car = self.env['flexwheels.car'].browse(new_car_id)
+            new_car.is_available = False
+
+        return super().write(vals)

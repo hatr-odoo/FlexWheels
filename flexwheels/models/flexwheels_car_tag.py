@@ -10,3 +10,4 @@ class flexwheelsCarTag(models.Model):
     
     name = fields.Char(required=True)
     color = fields.Integer(string="Color", default=_get_default_color)
+    _sql_constraints=[('name_unique', 'unique(name)', 'Tag with given name already exists.')]

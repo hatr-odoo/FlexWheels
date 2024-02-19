@@ -18,7 +18,7 @@
     <field name="name">flexwheels.car.type.tree</field>
     <field name="model">flexwheels.car.type</field>
     <field name="arch" type="xml">
-      <tree string="Channel">
+      <tree string="Channel" editable='bottom'>
         <field name="name" string="Car Type"/>
         <field name="price_per_km"/>
       </tree>
@@ -33,7 +33,7 @@
       <form string="Type form">
         <sheet>
           <group>
-              <field name="name"/>
+              <field name="name" placeholder='Eg: Hatchback'/>
               <field name="price_per_km"/>
           </group>
         </sheet>

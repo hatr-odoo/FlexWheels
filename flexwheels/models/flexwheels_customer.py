@@ -1,5 +1,9 @@
-from odoo import fields, models
+import datetime
+import re
+from odoo import api, fields, models
 from dateutil.relativedelta import relativedelta
+
+from odoo.exceptions import ValidationError
 
 class flexwheelsCustomer(models.Model):
     _name = "flexwheels.customer"
@@ -50,7 +54,31 @@ class flexwheelsCustomer(models.Model):
                                         ('puducherry', 'Puducherry')
                                 ]
 )
-    contact_number=fields.Integer(required=True)
+    contact_number=fields.Char(required=True)
     birth_date=fields.Date(required=True)
     occupation=fields.Char(required=True)
-    emergency_contact_number=fields.Integer(required=True)
+    emergency_contact_number=fields.Char(required=True)
+    
+    @api.constrains('contact_number', 'emergency_contact_number')
+    def _check_contact_number(self):
+        for record in self:
+            if not len(record.contact_number) == 10:
+                raise ValidationError('Invalid Phone number.')
+            elif not len(record.emergency_contact_number) ==10:
+                raise ValidationError('Invalid Emergency contact number')
+            
+    @api.constrains('license')
+    def _check_license(self):
+        license_number_pattern = r'^(([A-Z]{2}[0-9]{2})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$'
+        for record in self:
+            if re.match(license_number_pattern, record.license) is None:
+                raise ValidationError('Invalid driving license number')
+    
+    @api.constrains('birth_date')
+    def _check_birth_date(self):
+        for record in self:
+            today = fields.date.today()
+            age = today.year - record.birth_date.year - ((today.month, today.day) < (record.birth_date.month, record.birth_date.day))
+            
+            if age<18:
+                raise ValidationError('Age must be above 18 years')

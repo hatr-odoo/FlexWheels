@@ -1,5 +1,7 @@
 from odoo import api, fields, models
-from dateutil.relativedelta import relativedelta
+import re
+
+from odoo.exceptions import ValidationError
 
 class flexwheelsCar(models.Model):
     _name = "flexwheels.car"
@@ -10,7 +12,7 @@ class flexwheelsCar(models.Model):
     name=fields.Char(required=True)
     type_of_vehicle=fields.Many2one('flexwheels.car.type', string='Type of Vehicle')
     price_per_km=fields.Float('flexwheels.car.type', related='type_of_vehicle.price_per_km')
-    year_of_manufacturing= fields.Integer(required=True)
+    year_of_manufacturing= fields.Integer(required=True, default=fields.Date.today().year)
     deposit_amount=fields.Float(required=True, compute='_compute_deposit_amount')
     variant=fields.Char(required=True)
     is_available=fields.Boolean(default=True)
@@ -50,7 +52,7 @@ class flexwheelsCar(models.Model):
         required=True,
         tracking=True
     )
-    seating_capacity=fields.Integer(required=True)
+    seating_capacity=fields.Integer(required=True, default=5)
     price=fields.Float(required=True, string="Price/day", readonly=True, compute='_compute_price')
     active=fields.Boolean(default=True)
     additional_features=fields.Text()
@@ -58,6 +60,8 @@ class flexwheelsCar(models.Model):
     tag_ids=fields.Many2many("flexwheels.car.tag")
     booking_ids=fields.One2many('flexwheels.booking', 'car_id', string=' ')
     done_booking_ids=fields.One2many('flexwheels.booking', 'car_id', compute='_compute_done_booking_id', string=" ")
+    
+    _sql_constraints=[('check_seating_capacity', 'CHECK(seating_capacity>1)', 'Seating capacity must be atleast 2')]
     
     @api.depends('booking_ids')
     def _compute_done_booking_id(self):
@@ -75,3 +79,18 @@ class flexwheelsCar(models.Model):
     def _compute_price(self):
         for record in self:
             record.price=record.price_per_km*250
+    
+    @api.constrains('license_plate_number')
+    def _check_license_plate_number(self):
+        for record in self:
+            pattern = r'^[A-Z]{2}[0-9]{1,2}[A-Z]{1,2}[0-9]{4}$'
+            if not re.match(pattern, record.license_plate_number) is not None:
+                raise ValidationError('Invalid license plate number. Ex: MH12AB1234')
+            
+    @api.constrains('year_of_manufacturing')
+    def _check_seating_capacity(self):
+        for record in self:
+            if record.year_of_manufacturing>(fields.Date.today().year):
+                raise ValidationError('Year of manufacturing can not be in the future')
+            elif record.year_of_manufacturing<1884:
+                raise ValidationError('Ancient car detected. Keep the car in modern times.')

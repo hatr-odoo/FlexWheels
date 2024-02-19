@@ -31,9 +31,9 @@
     <field name="arch" type="xml">
       <form string="Brand form">
         <sheet>
-          <group>
-              <field name="name"/>
-          </group>
+            <h1>
+                <field name="name" placeholder='Eg: Hyundai'/>
+            </h1>
         </sheet>
       </form>
     </field>

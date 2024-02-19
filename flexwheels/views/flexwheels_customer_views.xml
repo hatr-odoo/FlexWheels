@@ -34,12 +34,12 @@
         <sheet>
           <group>
             <h1>
-              <field name="name" nolabel="1"/>
+              <field name="name" nolabel="1" placeholder='Eg: Rahul Kapur'/>
             </h1>
             <group colspan="2">
               <group cols="1">
-                <field name="contact_number"/>
-                <field name="city"/>
+                <field name="contact_number" placeholder='Eg: 1234567890'/>
+                <field name="city" placeholder='Eg: Ahmedabad'/>
               </group>
             </group>
           </group>
@@ -48,10 +48,10 @@
           <notebook>
             <page string="Personal Information">
               <group>
-                <field name="license"/>
+                <field name="license" placeholder='Eg: HR-0619850034761'/>
                 <field name="birth_date"/>
                 <field name="occupation"/>
-                <field name="emergency_contact_number"/>
+                <field name="emergency_contact_number" placeholder='Eg: 1234567890'/>
                 <field name="address"/>
                 <field name="state"/>
               </group>

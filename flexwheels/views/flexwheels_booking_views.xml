@@ -18,10 +18,11 @@
     <field name="name">flexwheels.booking.tree</field>
     <field name="model">flexwheels.booking</field>
     <field name="arch" type="xml">
-      <tree string="Channel">
+      <tree string="Channel" decoration-success='state=="confirm"' decoration-danger='state=="cancelled"' decoration-muted='state=="done"'>
         <field name="customer_id" string="Customer"/>
         <field name="car_id" string="Car"/>
         <field name="booking_information" string="Booking Information"/>
+        <field name="state" optional="hide" invisible="1"/>
         <field name="drop_information" string="Drop Information"/>
         <field name="billing_amount" string="Billing Amount"/>
       </tree>
@@ -48,13 +49,14 @@
             <group colspan="2">
               <group cols="1">
                 <field name="customer_id"/>
-                <field name="booking_information"/>
+                <field name="pickup_information"/>
                 <field name="car_id" string="Car" domain="[('is_available', '=', True)]"/>
                 <field name="billing_amount" string="Billing Amount"/>
               </group>
               <group cols="2">
-                <field name="state"/>
+                <field name="booking_information"/>
                 <field name="drop_information"/>
+                <field name="state"/>
               </group>
             </group>
           </group>

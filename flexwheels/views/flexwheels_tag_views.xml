@@ -18,7 +18,7 @@
     <field name="name">flexwheels.car.tag.tree</field>
     <field name="model">flexwheels.car.tag</field>
     <field name="arch" type="xml">
-      <tree string="Channel">
+      <tree string="Channel" editable='bottom'>
         <field name="name" string="Car Tag"/>
         <field name="color" widget="color_picker"/>
       </tree>
@@ -32,10 +32,12 @@
     <field name="arch" type="xml">
       <form string="Tag form">
         <sheet>
-          <group>
-              <field name="name"/>
+            <h1>
+              <field name="name" placeholder="Eg: cozy" nolabel="1"/>
+            </h1>
+            <group>
               <field name="color" widget="color_picker"/>
-          </group>
+            </group>
         </sheet>
       </form>
     </field>

@@ -18,7 +18,7 @@
     <field name="name">flexwheels.car.tree</field>
     <field name="model">flexwheels.car</field>
     <field name="arch" type="xml">
-      <tree string="Channel">
+      <tree string="Channel" decoration-success="is_available" decoration-muted="not is_available">
         <field name="name" string="Name"/>
         <field name="brand" string="Brand"/>
         <field name="variant" string="Variant"/>
@@ -26,6 +26,7 @@
         <field name="mileage" string="Mileage"/>
         <field name="price" string="Price"/>
         <field name="deposit_amount" string="Deposit"/>
+        <field name="is_available" optional="hide" invisible="1"/>
         <field name="fuel_type" string="Fuel Type"/>
         <field name="transmission" string="Transmission"/>
         <field name="seating_capacity" string="Seating Capacity"/>
@@ -42,30 +43,28 @@
       <form string="Idea form">
         <sheet>
         <group>
-          <group>
             <h1>
-              <field name="name" nolabel="1"/>
+              <field name="name" nolabel="1" placeholder='Eg: Rahul Kapur'/>
             </h1>
             <label for="tag_ids" string="Tags"/>
             <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
             <group colspan="2">
               <group cols="1">
                 <field name="brand"/>
-                <field name="license_plate_number"/>
+                <field name="license_plate_number" placeholder='Eg. MH12AB1234'/>
                 <field name="is_available"/>
               </group>
-              <group cols="2">
+              <group cols="1">
                 <field name="price"/>
                 <field name="type_of_vehicle"></field>
               </group>
             </group>
-          </group>
 
           <!--Description-->
           <notebook>
             <page string="Description">
               <group>
-                <field name="variant"/>
+                <field name="variant" placeholder='Eg: 4xplorer'/>
                 <field name="color"/>
                 <field name="year_of_manufacturing"/>
                 <field name="mileage"/>
