@@ -6,6 +6,7 @@
     <field name="name">Cars</field>
     <field name="res_model">flexwheels.car</field>
     <field name="view_mode">tree,form</field>
+    <field name="context">{'search_default_available': 1}</field>
     <field name="help" type="html">
       <p class="o_view_nocontent_smiling_face">
             No car's found. Please acquire one!
@@ -123,7 +124,7 @@
         <field name="seating_capacity" string="Seating Capacity"/>
         <field name="year_of_manufacturing" string="Model"/>
         <!--Filters-->
-        <!-- <filter string="Availability" name="state" domain="['|', ('state','=','New'), ('state', '=','Offer Received')]"/> -->
+        <filter string="Available" name="available" domain="[('is_available', '=', True)]"/>
         <!--Groupby-->
         <group>
           <filter string="Brand" name="brand" context="{'group_by':'brand'}"/>

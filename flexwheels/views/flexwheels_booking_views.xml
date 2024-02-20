@@ -36,8 +36,11 @@
     <field name="arch" type="xml">
       <form string="Idea form">
         <header>
-          <button name="action_confirm" class="btn-primary" type="object" string="Confirm"/>
-          <button name="action_cancel" type="object" string="Cancel"/>
+          <button name="action_confirm" class="btn-primary" type="object" string="Confirm" invisible="not state=='draft'"/>
+          <button name="action_ongoing" class="btn-primary" type="object" string="Ongoing" invisible="not state=='confirm'"/>
+          <button name="action_done" class="btn-primary" type="object" string="Done" invisible="not state=='ongoing'"/>
+          <button name="action_cancel" type="object" string="Cancel" invisible="state=='done' or state=='cancelled'"/>
+          <field name="state" widget="statusbar" statusbar_visible="draft,confirm,ongoing,done"/>
         </header>
         <sheet>
           <group>

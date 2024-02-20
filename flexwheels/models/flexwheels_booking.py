@@ -43,17 +43,31 @@ class flexwheelsCustomer(models.Model):
                    
     def action_confirm(self):
         for record in self:
-            if not record.state=='cancelled':
+            if record.state=='draft':
                 record.state='confirm'
                 return True
-            raise UserError('Cancelled bookings cannot be confirmed.')
+            raise UserError('Confirmation not possible.')
+    
+    def action_ongoing(self):
+        for record in self:
+            if record.state=='confirm':
+                record.state='ongoing'
+                return True
+            raise UserError('Ongoing not possible.')
+    
+    def action_done(self):
+        for record in self:
+            if record.state=='ongoing':
+                record.state='done'
+                return True
+            raise UserError('Done not possible.')
     
     def action_cancel(self):
         for record in self:
-            if not record.state=='confirm':
+            if not record.state=='cancelled':
                 record.state='cancelled'
                 return True
-            raise UserError('Confirmed bookings cannot be cancelled.')
+            raise UserError('Cancellation not possible.')
         
     @api.constrains('pickup_information')
     def _check_drop_information(self):
