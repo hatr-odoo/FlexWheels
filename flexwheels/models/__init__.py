@@ -5,3 +5,4 @@ from . import flexwheels_invoice
 from . import flexwheels_car_tag
 from . import flexwheels_car_type
 from . import flexwheels_car_brand
+from . import inherited_res_users

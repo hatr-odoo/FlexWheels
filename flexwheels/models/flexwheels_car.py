@@ -61,7 +61,8 @@ class flexwheelsCar(models.Model):
     booking_ids=fields.One2many('flexwheels.booking', 'car_id', string=' ')
     done_booking_ids=fields.One2many('flexwheels.booking', 'car_id', compute='_compute_done_booking_id', string=" ")
     
-    _sql_constraints=[('check_seating_capacity', 'CHECK(seating_capacity>1)', 'Seating capacity must be atleast 2')]
+    _sql_constraints=[('check_seating_capacity', 'CHECK(seating_capacity>1)', 'Seating capacity must be atleast 2'),
+                      ('license_plate_number_unique', 'unique(license_plate_number)', 'Car with same license plate number already exists.')]
     
     @api.depends('booking_ids')
     def _compute_done_booking_id(self):

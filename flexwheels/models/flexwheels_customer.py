@@ -14,6 +14,8 @@ class flexwheelsCustomer(models.Model):
     license=fields.Char(required=True)
     address=fields.Text(required=True)
     city=fields.Char(required=True)
+    image = fields.Binary(required=True)
+    license_image = fields.Binary(required=True)
     state=fields.Selection(required=True,
                            string="Select State",
                            selection= [

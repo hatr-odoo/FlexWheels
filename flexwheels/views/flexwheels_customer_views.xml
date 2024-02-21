@@ -32,10 +32,11 @@
     <field name="arch" type="xml">
       <form string="Idea form">
         <sheet>
-          <group>
             <h1>
-              <field name="name" nolabel="1" placeholder='Eg: Rahul Kapur'/>
+                <field name="name" nolabel="1" placeholder='Eg: Rahul Kapur'/>
+                <field name="image" widget="image" class="oe_avatar" options="{'size': [150, 150]}" nolabel="1"/>
             </h1>
+            <group>
             <group colspan="2">
               <group cols="1">
                 <field name="contact_number" placeholder='Eg: 1234567890'/>
@@ -49,6 +50,7 @@
             <page string="Personal Information">
               <group>
                 <field name="license" placeholder='Eg: HR-0619850034761'/>
+                <field name="license_image" widget="image" class="oe_avatar" options="{'size': [300, 200]}"/>
                 <field name="birth_date"/>
                 <field name="occupation"/>
                 <field name="emergency_contact_number" placeholder='Eg: 1234567890'/>

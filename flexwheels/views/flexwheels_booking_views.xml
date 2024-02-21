@@ -24,7 +24,6 @@
         <field name="booking_information" string="Booking Information"/>
         <field name="state" optional="hide" invisible="1"/>
         <field name="drop_information" string="Drop Information"/>
-        <field name="billing_amount" string="Billing Amount"/>
       </tree>
     </field>
   </record>
@@ -39,14 +38,14 @@
           <button name="action_confirm" class="btn-primary" type="object" string="Confirm" invisible="not state=='draft'"/>
           <button name="action_ongoing" class="btn-primary" type="object" string="Ongoing" invisible="not state=='confirm'"/>
           <button name="action_done" class="btn-primary" type="object" string="Done" invisible="not state=='ongoing'"/>
-          <button name="action_cancel" type="object" string="Cancel" invisible="state=='done' or state=='cancelled'"/>
+          <button name="action_cancel" type="object" string="Cancel" invisible="not state=='confirm'"/>
           <field name="state" widget="statusbar" statusbar_visible="draft,confirm,ongoing,done"/>
         </header>
         <sheet>
           <group>
             <group>
             <h1>
-              <field name="name"/>
+              <field name="seq_name"/>
             </h1>
             </group>
             <group colspan="2">
@@ -54,12 +53,12 @@
                 <field name="customer_id"/>
                 <field name="pickup_information"/>
                 <field name="car_id" string="Car" domain="[('is_available', '=', True)]"/>
-                <field name="billing_amount" string="Billing Amount"/>
               </group>
               <group cols="2">
                 <field name="booking_information"/>
                 <field name="drop_information"/>
                 <field name="state"/>
+                <field name="salesperson_id"/>
               </group>
             </group>
           </group>

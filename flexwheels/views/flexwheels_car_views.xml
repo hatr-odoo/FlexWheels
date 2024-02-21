@@ -45,7 +45,7 @@
         <sheet>
         <group>
             <h1>
-              <field name="name" nolabel="1" placeholder='Eg: Rahul Kapur'/>
+              <field name="name" nolabel="1" placeholder='Eg: Swift'/>
             </h1>
             <label for="tag_ids" string="Tags"/>
             <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
