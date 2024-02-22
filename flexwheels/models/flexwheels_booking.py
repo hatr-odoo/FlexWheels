@@ -9,10 +9,12 @@ class flexwheelsBooking(models.Model):
     customer_id=fields.Many2one('flexwheels.customer', string="Customer", required=True)
     salesperson_id=fields.Many2one('res.users', default= lambda self: self.env.user, tracking=True)
     car_id=fields.Many2one('flexwheels.car', string="Car", required=True)
+    car_type_id = fields.Many2one(related='car_id.car_type_id')
     price=fields.Float('flexwheels.car', related='car_id.price')
-    booking_information=fields.Date(required=True, default=fields.Date.today(), readonly=True)
-    pickup_information=fields.Date(required=True, default=fields.Date.today(), readonly=True)
-    drop_information=fields.Date(required=True)
+    deposit_amount=fields.Float(compute='_compute_deposit_amount', readonly=True)
+    booking_information=fields.Datetime(required=True, default=fields.Datetime.now(), readonly=True)
+    pickup_information=fields.Datetime(required=True, default=fields.Datetime.now(), readonly=True)
+    drop_information=fields.Datetime(required=True)
     seq_name = fields.Char(string='Booking Reference', required=True, readonly=True, copy=False, default= lambda self: ('New'))
     state=fields.Selection(
         string="Status",
@@ -23,9 +25,24 @@ class flexwheelsBooking(models.Model):
                    ('done', 'Done')],
         default='draft'
     )
+    terms_and_conditions=fields.Text(readonly=True, default= lambda self: self._get_terms_conditions())
+    agree_checkbox = fields.Boolean(required=True)
+    
+    def _get_terms_conditions(self):
+        file_path = '/home/odoo/odoo/flexwheels/flexwheels/data/Terms&Conditions'
+        with open(file_path, 'r') as file:
+            content = file.read()
+        return content
+    
+    @api.depends('price')
+    def _compute_deposit_amount(self):
+        for record in self:
+            record.deposit_amount=record.price*24
                    
     def action_confirm(self):
         for record in self:
+            if not record.agree_checkbox:
+                raise UserError('Please agree the terms and conditions given below.')
             if record.state=='draft':
                 record.state='confirm'
                 return True
@@ -34,7 +51,7 @@ class flexwheelsBooking(models.Model):
     def action_ongoing(self):
         for record in self:
             if record.state=='confirm':
-                record.state='ongoing'
+                record.state='ongoing'  
                 record.car_id.is_available=False
                 return True
             raise UserError('Ongoing not possible.')

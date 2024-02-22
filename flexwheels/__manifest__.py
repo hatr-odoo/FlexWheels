@@ -13,7 +13,6 @@
         'views/flexwheels_car_views.xml',
         'views/flexwheels_customer_views.xml',
         'views/flexwheels_booking_views.xml',
-        'views/flexwheels_invoice_views.xml',
         'views/flexwheels_car_brand_views.xml',
         'views/flexwheels_car_type_views.xml',
         'views/flexwheels_res_users_views.xml',

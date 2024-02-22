@@ -1,11 +1,10 @@
 <?xml version="1.0"?>
 <odoo>
-
   <!--Action-->
   <record id="car_action" model="ir.actions.act_window">
     <field name="name">Cars</field>
     <field name="res_model">flexwheels.car</field>
-    <field name="view_mode">tree,form</field>
+    <field name="view_mode">tree,form,kanban</field>
     <field name="context">{'search_default_available': 1}</field>
     <field name="help" type="html">
       <p class="o_view_nocontent_smiling_face">
@@ -13,7 +12,6 @@
           </p>
     </field>
   </record>
-
   <!--List View-->
   <record id="car_model_view_tree" model="ir.ui.view">
     <field name="name">flexwheels.car.tree</field>
@@ -25,8 +23,7 @@
         <field name="variant" string="Variant"/>
         <field name="color" string="Color"/>
         <field name="mileage" string="Mileage"/>
-        <field name="price" string="Price"/>
-        <field name="deposit_amount" string="Deposit"/>
+        <field name="price" string="Price/hr"/>
         <field name="is_available" optional="hide" invisible="1"/>
         <field name="fuel_type" string="Fuel Type"/>
         <field name="transmission" string="Transmission"/>
@@ -35,7 +32,6 @@
       </tree>
     </field>
   </record>
-
   <!-- Form View-->
   <record id="car_model_form_1" model="ir.ui.view">
     <field name="name">flexwheels.car.form</field>
@@ -43,57 +39,53 @@
     <field name="arch" type="xml">
       <form string="Idea form">
         <sheet>
-        <group>
-            <h1>
-              <field name="name" nolabel="1" placeholder='Eg: Swift'/>
-            </h1>
+          <h1>
+            <field name="name" nolabel="1" placeholder='Eg: Swift'/>
+            <field name="image" widget="image" class="oe_avatar" options="{'size': [150, 150]}" nolabel="1"/>
+          </h1>
+          <group>
             <label for="tag_ids" string="Tags"/>
             <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
             <group colspan="2">
               <group cols="1">
                 <field name="brand"/>
-                <field name="license_plate_number" placeholder='Eg. MH12AB1234'/>
                 <field name="is_available"/>
               </group>
               <group cols="1">
-                <field name="price"/>
-                <field name="type_of_vehicle"></field>
+                <field name="price" string="Price/hr"/>
+                <field name="car_type_id"></field>
               </group>
             </group>
-
-          <!--Description-->
-          <notebook>
-            <page string="Description">
-              <group>
-                <field name="variant" placeholder='Eg: 4xplorer'/>
-                <field name="color"/>
-                <field name="year_of_manufacturing"/>
-                <field name="mileage"/>
-                <field name="transmission"/>
-                <field name="fuel_type"/>
-                <field name="seating_capacity"/>
-                <field name="additional_features"/>
-              </group>
-            </page>
-
-            <!--Terms & Conditions-->
-            <page string="Terms and Conditions">
-              <group>
-                <field name="deposit_amount"/>
-                <field name="terms_and_conditions"/>
-              </group>
-            </page>
-
-            <!--Booking History-->
-            <page string="Booking History">
-              <group>
-                <field name="done_booking_ids"/>
-              </group>
-            </page>
-          </notebook>
+            <!--Description-->
+            <notebook>
+              <page string="Description">
+                <group>
+                  <field name="variant" placeholder='Eg: 4xplorer'/>
+                  <field name="color"/>
+                  <field name="year_of_manufacturing"/>
+                  <field name="mileage"/>
+                  <field name="transmission"/>
+                  <field name="fuel_type"/>
+                  <field name="seating_capacity"/>
+                  <field name="additional_features"/>
+                </group>
+              </page>
+              <page name="Registration Information">
+                <group>
+                  <field name="registration_number" placeholder='Eg. MH12AB1234'/>
+                  <field name="chassis_number" placeholder="Eg. ABZ12345CD6789012"/>
+                </group>
+                <field name="registration_book_image" widget="image" options="{'size': [300, 200]}" class="oe_avatar"/>
+              </page>
+              <!--Booking History-->
+              <page string="Booking History">
+                <group>
+                  <field name="done_booking_ids"/>
+                </group>
+              </page>
+            </notebook>
           </group>
         </sheet>
-
         <!--Chatter-->
         <div class="oe_chatter">
           <field name="activity_ids"/>
@@ -104,7 +96,37 @@
       </form>
     </field>
   </record>
-
+  <!--Kanban View-->
+  <record id="felxwheels_car_kanban" model="ir.ui.view">
+    <field name="name">flexwheels.car.kanban</field>
+    <field name="model">flexwheels.car</field>
+    <field name="arch" type="xml">
+      <kanban records_draggable="False" default_group_by="car_type_id">
+        <field name="is_available" />
+        <field name="color" />
+        <templates>
+          <t t-name="kanban-box" >
+            <div class="oe_kanban_global_click" t-att-style="record.is_available.raw_value ? '' : 'opacity: 0.5;'">
+              <h3>
+                <field name="name"/>
+              </h3>
+              <div>
+                <p>
+                  <field name="brand" />
+                </p>
+                <p>Price/hr:
+                  <field name="price" />
+                </p>
+              </div>
+              <p>Tags:
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+              </p>
+            </div>
+          </t>
+        </templates>
+      </kanban>
+    </field>
+  </record>
   <!--Search View-->
   <record id="car_model_search" model="ir.ui.view">
     <field name="name">flexwheels.car.search</field>
@@ -117,10 +139,10 @@
         <field name="variant" string="Variant"/>
         <field name="color" string="Color"/>
         <field name="mileage" string="Mileage"/>
-        <field name="price" string="Price"/>
+        <field name="price" string="Price/hr"/>
         <field name="fuel_type" string="Fuel Type"/>
         <field name="transmission" string="Transmission"/>
-        <field name="type_of_vehicle"/>
+        <field name="car_type_id"/>
         <field name="seating_capacity" string="Seating Capacity"/>
         <field name="year_of_manufacturing" string="Model"/>
         <!--Filters-->

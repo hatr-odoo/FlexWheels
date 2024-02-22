@@ -50,7 +50,7 @@
             <page string="Personal Information">
               <group>
                 <field name="license" placeholder='Eg: HR-0619850034761'/>
-                <field name="license_image" widget="image" class="oe_avatar" options="{'size': [300, 200]}"/>
+                <field name="license_image" widget="image" options="{'size': [300, 200]}"/>
                 <field name="birth_date"/>
                 <field name="occupation"/>
                 <field name="emergency_contact_number" placeholder='Eg: 1234567890'/>

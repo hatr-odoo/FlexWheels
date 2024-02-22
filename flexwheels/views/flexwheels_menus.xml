@@ -7,7 +7,6 @@
         </menuitem>
         <menuitem id="flexwheels_first_level_menu_bookings" name="Bookings">
             <menuitem id="booking_menu_action" name="My Bookings" action="booking_action"/>
-            <menuitem id="invoice_menu_action" name="My Invoices" action="invoice_action"/>
         </menuitem>
         <menuitem id="flexwheels_first_level_menu_configuration" name="Configuration">
             <menuitem id="brand_menu_action" name="Brands" action="flexwheels_car_brand_action"/>

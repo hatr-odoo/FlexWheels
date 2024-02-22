@@ -61,6 +61,8 @@ class flexwheelsCustomer(models.Model):
     occupation=fields.Char(required=True)
     emergency_contact_number=fields.Char(required=True)
     
+    _sql_constraints = [('license_unique', 'unique(license)', 'Customer with same license number already exists.')]
+    
     @api.constrains('contact_number', 'emergency_contact_number')
     def _check_contact_number(self):
         for record in self:

@@ -4,7 +4,7 @@
   <record id="booking_action" model="ir.actions.act_window">
     <field name="name">Bookings</field>
     <field name="res_model">flexwheels.booking</field>
-    <field name="view_mode">tree,form</field>
+    <field name="view_mode">tree,form,kanban</field>
     <field name="context">{'search_default_state': 1}</field>
     <field name="help" type="html">
       <p class="o_view_nocontent_smiling_face">
@@ -13,18 +13,66 @@
     </field>
   </record>
 
+  <!--Action for Stat Button-->
+  <record id="booking_stat_button_action" model="ir.actions.act_window">
+    <field name="name">Bookings</field>
+    <field name="res_model">flexwheels.booking</field>
+    <field name="view_mode">tree,form,kanban</field>
+    <field name="domain">[('car_type_id', '=', active_id)]</field>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+            No record found. Let's create one!
+          </p>
+    </field>
+  </record>
+  
   <!--List View-->
   <record id="booking_model_view_tree" model="ir.ui.view">
     <field name="name">flexwheels.booking.tree</field>
     <field name="model">flexwheels.booking</field>
     <field name="arch" type="xml">
       <tree string="Channel" decoration-success='state=="confirm"' decoration-danger='state=="cancelled"' decoration-muted='state=="done"'>
+        <field name="seq_name" string="Booking Number" />
         <field name="customer_id" string="Customer"/>
         <field name="car_id" string="Car"/>
         <field name="booking_information" string="Booking Information"/>
         <field name="state" optional="hide" invisible="1"/>
         <field name="drop_information" string="Drop Information"/>
       </tree>
+    </field>
+  </record>
+
+  <!--Kanban View-->
+  <record id="felxwheels_booking_kanban" model="ir.ui.view">
+    <field name="name">flexwheels.booking.kanban</field>
+    <field name="model">flexwheels.booking</field>
+    <field name="arch" type="xml">
+      <kanban records_draggable="True" default_group_by="state">
+        <field name="state" />
+        <templates>
+          <t t-name="kanban-box" >
+            <div class="oe_kanban_global_click">
+              <h3>
+                <field name="seq_name"/>
+              </h3>
+              <div>
+                <p>Customer:
+                  <field name="customer_id" />
+                </p>
+                <p>Car:
+                  <field name="car_id" />
+                </p>
+                <p>Pickup Date:
+                  <field name="pickup_information" />
+                </p>
+                <p>Drop Date:
+                  <field name="drop_information" />
+                </p>
+              </div>
+            </div>
+          </t>
+        </templates>
+      </kanban>
     </field>
   </record>
 
@@ -44,9 +92,9 @@
         <sheet>
           <group>
             <group>
-            <h1>
-              <field name="seq_name"/>
-            </h1>
+              <h1>
+                <field name="seq_name"/>
+              </h1>
             </group>
             <group colspan="2">
               <group cols="1">
@@ -61,9 +109,18 @@
                 <field name="salesperson_id"/>
               </group>
             </group>
+            <notebook>
+              <!--Terms & Conditions-->
+              <page string="Terms and Conditions">
+                <group>
+                  <field name="deposit_amount"/>
+                  <field name="terms_and_conditions"/>
+                  <field name="agree_checkbox" string="I agree to the above terms and conditions"/>
+                </group>
+              </page>
+            </notebook>
           </group>
         </sheet>
-        
         <!-- chatter -->
         <div class="oe_chatter">
           <field name="activity_ids"/>

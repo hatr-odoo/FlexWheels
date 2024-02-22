@@ -18,9 +18,8 @@
     <field name="name">flexwheels.car.type.tree</field>
     <field name="model">flexwheels.car.type</field>
     <field name="arch" type="xml">
-      <tree string="Channel" editable='bottom'>
+      <tree string="Channel">
         <field name="name" string="Car Type"/>
-        <field name="price_per_km"/>
       </tree>
     </field>
   </record>
@@ -32,10 +31,34 @@
     <field name="arch" type="xml">
       <form string="Type form">
         <sheet>
-          <group>
+          <div class="oe_button_box" name="button_box">
+              <button class="oe_stat_button" type="action" name="flexwheels.booking_stat_button_action" icon="fa-bars" string="Bookings">
+                <div class="o_stat_info">
+                    <span class="o_stat_value">
+                        <field name="booking_count"/>
+                    </span>
+                    <span class="o_stat_text">
+                        Bookings
+                    </span>
+                </div>
+              </button>
+          </div>
+            <h1>
               <field name="name" placeholder='Eg: Hatchback'/>
-              <field name="price_per_km"/>
-          </group>
+            </h1>
+          <notebook>
+              <page name="bookings" string="Bookings">
+                <field name="booking_ids">
+                  <tree>
+                    <field name="seq_name" string="Booking Number"/>
+                    <field name="customer_id" string="Customer"/>
+                    <field name="car_id" string="Car"/>
+                    <field name="pickup_information" string="Pickup"/>
+                    <field name="drop_information" string="Drop" />
+                  </tree>
+                </field>
+              </page>
+            </notebook>
         </sheet>
       </form>
     </field>
