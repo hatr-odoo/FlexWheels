@@ -50,10 +50,12 @@
               <group cols="1">
                 <field name="brand"/>
                 <field name="is_available"/>
+                <field name="kms_driven" />
               </group>
               <group cols="1">
                 <field name="price" string="Price/hr"/>
-                <field name="car_type_id"></field>
+                <field name="car_type_id"/>
+                <field name="condition" />
               </group>
             </group>
             <!--Description-->

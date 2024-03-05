@@ -12,6 +12,22 @@ class flexwheelsCar(models.Model):
     name=fields.Char(required=True)
     image=fields.Binary(required=True, copy=False)
     car_type_id=fields.Many2one('flexwheels.car.type', string='Type of Vehicle')
+    kms_driven = fields.Float(required=True)
+    condition = fields.Selection(
+        string="Condition",
+        selection= [
+                        ('New', 'New'),
+                        ('Like New', 'Like New'),
+                        ('Excellent', 'Excellent'),
+                        ('Very Good', 'Very Good'),
+                        ('Good', 'Good'),
+                        ('Fair', 'Fair'),
+                        ('Average', 'Average'),
+                        ('Needs Repair', 'Needs Repair'),
+                        ('Parts Only', 'Parts Only')
+                    ],
+        required=True,
+    )
     price = fields.Float(required=True)
     years_tuple=[(str(year), str(year)) for year in range(fields.Date.today().year, 1884, -1)]
     year_of_manufacturing = fields.Selection(
@@ -95,3 +111,8 @@ class flexwheelsCar(models.Model):
         for record in self:
             if not len(record.chassis_number)==17:
                 raise ValidationError('Invalid chassis number. Chassis number must consist of 17 alphanumeric characters. Example: ABZ12345CD6789012')
+    
+    @api.depends('name', 'registration_number', 'color')
+    def _compute_display_name(self):
+        for record in self:
+            record.display_name = f'{record.name} [{record.registration_number}][{record.color}]'

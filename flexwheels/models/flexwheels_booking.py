@@ -56,14 +56,6 @@ class flexwheelsBooking(models.Model):
                 return True
             raise UserError('Ongoing not possible.')
     
-    def action_done(self):
-        for record in self:
-            if record.state=='ongoing':
-                record.state='done'
-                record.car_id.is_available=True
-                return True
-            raise UserError('Done not possible.')
-    
     def action_cancel(self):
         for record in self:
             if record.state=='draft' and record.state=='confirm':
@@ -92,3 +84,17 @@ class flexwheelsBooking(models.Model):
             old_car.is_available = True
 
         return super().write(vals)
+    
+    @api.constrains('pickup_information', 'drop_information')
+    def _check_car_availability(self):
+        for record in self:
+            flag = False
+            for booking in record.car_id.booking_ids:
+                if booking.state == 'confirm':
+                    if (booking.pickup_information < record.pickup_information < booking.drop_information) or (booking.pickup_information < record.drop_information < booking.drop_information):
+                        flag = True
+                elif booking.state == 'ongoing':
+                    if ((record.pickup_information < booking.drop_information)):
+                        flag = True
+            if flag:
+                raise ValidationError("Car is already booked for this period.")

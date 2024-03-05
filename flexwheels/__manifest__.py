@@ -10,6 +10,7 @@
     'data': [
         'security/ir.model.access.csv',
         'data/booking_sequence.xml',
+        'wizard/flexwheels_booking_wizard.xml',
         'views/flexwheels_car_views.xml',
         'views/flexwheels_customer_views.xml',
         'views/flexwheels_booking_views.xml',

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="flexwheels_booking_wizard_action" model="ir.actions.act_window">
+        <field name="name">Updating odometer reading to car</field>
+        <field name="res_model">flexwheels.booking.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <record id="flexwheels_booking_wizard_form" model="ir.ui.view">
+        <field name="name">flexhweels.booking.wizard.form</field>
+        <field name="model">flexwheels.booking.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="odometer_reading"/>
+                </group>
+                <footer>
+                    <button name="action_done" class="btn-primary" string="Done" type="object"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

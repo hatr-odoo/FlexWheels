@@ -5,3 +5,4 @@ flexwheels.access_flexwheels_booking,access_flexwheels_booking,flexwheels.model_
 flexwheels.access_flexwheels_car_tag,access_flexwheels_car_tag,flexwheels.model_flexwheels_car_tag,base.group_user,1,1,1,1
 flexwheels.access_flexwheels_car_type,access_flexwheels_car_type,flexwheels.model_flexwheels_car_type,base.group_user,1,1,1,1
 flexwheels.access_flexwheels_car_brand,access_flexwheels_car_brand,flexwheels.model_flexwheels_car_brand,base.group_user,1,1,1,1
+flexwheels.access_flexwheels_booking_wizard,access_flexwheels_booking_wizard,flexwheels.model_flexwheels_booking_wizard,base.group_user,1,1,1,1

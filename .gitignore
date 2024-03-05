@@ -1,5 +1,6 @@
 .gitignore
 /flexwheels/__pycache__/
 /flexwheels/models/__pycache__/
+/flexwheels/wizard/__pycache__/
 /flexwheels_account/__pycache__/
 /flexwheels_account/models/__pycache__/

@@ -85,7 +85,8 @@
         <header>
           <button name="action_confirm" class="btn-primary" type="object" string="Confirm" invisible="not state=='draft'"/>
           <button name="action_ongoing" class="btn-primary" type="object" string="Ongoing" invisible="not state=='confirm'"/>
-          <button name="action_done" class="btn-primary" type="object" string="Done" invisible="not state=='ongoing'"/>
+          <button string="Done" name="flexwheels.flexwheels_booking_wizard_action" type="action" class="oe_highlight" invisible="not state=='ongoing'"/>
+        
           <button name="action_cancel" type="object" string="Cancel" invisible="not state=='confirm'"/>
           <field name="state" widget="statusbar" statusbar_visible="draft,confirm,ongoing,done"/>
         </header>
