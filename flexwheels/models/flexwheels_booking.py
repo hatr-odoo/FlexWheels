@@ -1,3 +1,4 @@
+import datetime
 from odoo import api, fields, models
 from odoo.exceptions import UserError, ValidationError
 
@@ -13,7 +14,7 @@ class flexwheelsBooking(models.Model):
     price=fields.Float('flexwheels.car', related='car_id.price')
     deposit_amount=fields.Float(compute='_compute_deposit_amount', readonly=True)
     booking_information=fields.Datetime(required=True, default=fields.Datetime.now(), readonly=True)
-    pickup_information=fields.Datetime(required=True, default=fields.Datetime.now(), readonly=True)
+    pickup_information=fields.Datetime(required=True)
     drop_information=fields.Datetime(required=True)
     seq_name = fields.Char(string='Booking Reference', required=True, readonly=True, copy=False, default= lambda self: ('New'))
     state=fields.Selection(
@@ -43,6 +44,7 @@ class flexwheelsBooking(models.Model):
         for record in self:
             if not record.agree_checkbox:
                 raise UserError('Please agree the terms and conditions given below.')
+            
             if record.state=='draft':
                 record.state='confirm'
                 return True
@@ -50,6 +52,7 @@ class flexwheelsBooking(models.Model):
     
     def action_ongoing(self):
         for record in self:
+            
             if record.state=='confirm':
                 record.state='ongoing'  
                 record.car_id.is_available=False
@@ -75,7 +78,6 @@ class flexwheelsBooking(models.Model):
             vals['seq_name'] = self.env['ir.sequence'].next_by_code('flexwheels.booking') or 'New'
         return super().create(vals)
 
-    @api.model
     def write(self, vals):
         if 'car_id' in vals:
             old_car_id = self.car_id.id
@@ -85,16 +87,8 @@ class flexwheelsBooking(models.Model):
 
         return super().write(vals)
     
-    @api.constrains('pickup_information', 'drop_information')
-    def _check_car_availability(self):
+    @api.ondelete(at_uninstall=False)
+    def _unlink_if_draft_or_cancelled(self):
         for record in self:
-            flag = False
-            for booking in record.car_id.booking_ids:
-                if booking.state == 'confirm':
-                    if (booking.pickup_information < record.pickup_information < booking.drop_information) or (booking.pickup_information < record.drop_information < booking.drop_information):
-                        flag = True
-                elif booking.state == 'ongoing':
-                    if ((record.pickup_information < booking.drop_information)):
-                        flag = True
-            if flag:
-                raise ValidationError("Car is already booked for this period.")
+            if not (record.state=='draft' or record.state=='cancelled'):
+                raise UserError('Cannot delete an active booking.')

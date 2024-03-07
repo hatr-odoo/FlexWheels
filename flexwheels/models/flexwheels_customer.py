@@ -76,7 +76,7 @@ class flexwheelsCustomer(models.Model):
         license_number_pattern = r'^(([A-Z]{2}[0-9]{2})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$'
         for record in self:
             if re.match(license_number_pattern, record.license) is None:
-                raise ValidationError('Invalid driving license number')
+                raise ValidationError('Invalid driving license number. Eg. HR-0619850034761')
     
     @api.constrains('birth_date')
     def _check_birth_date(self):

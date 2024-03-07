@@ -8,7 +8,7 @@ class flexwheelsCar(models.Model):
     _description = "Flexwheels Car"
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    brand=fields.Many2one('flexwheels.car.brand', string='Brand', required=True)
+    brand_id=fields.Many2one('flexwheels.car.brand', string='Brand', required=True)
     name=fields.Char(required=True)
     image=fields.Binary(required=True, copy=False)
     car_type_id=fields.Many2one('flexwheels.car.type', string='Type of Vehicle')
@@ -16,15 +16,15 @@ class flexwheelsCar(models.Model):
     condition = fields.Selection(
         string="Condition",
         selection= [
-                        ('New', 'New'),
-                        ('Like New', 'Like New'),
-                        ('Excellent', 'Excellent'),
-                        ('Very Good', 'Very Good'),
-                        ('Good', 'Good'),
-                        ('Fair', 'Fair'),
-                        ('Average', 'Average'),
-                        ('Needs Repair', 'Needs Repair'),
-                        ('Parts Only', 'Parts Only')
+                        ('new', 'New'),
+                        ('like_new', 'Like New'),
+                        ('excellent', 'Excellent'),
+                        ('very_good', 'Very Good'),
+                        ('good', 'Good'),
+                        ('fair', 'Fair'),
+                        ('average', 'Average'),
+                        ('needs_repair', 'Needs Repair'),
+                        ('parts_only', 'Parts Only')
                     ],
         required=True,
     )
@@ -76,7 +76,6 @@ class flexwheelsCar(models.Model):
         tracking=True
     )
     seating_capacity=fields.Integer(required=True, default=5)
-    active=fields.Boolean(default=True)
     additional_features=fields.Text(copy=False)
     tag_ids=fields.Many2many("flexwheels.car.tag")
     booking_ids=fields.One2many('flexwheels.booking', 'car_id', string=' ', copy=False)

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <odoo>
-    <menuitem id="flexwheels_menu_root" name="FlexWheels" web_icon="flexwheels,assets/flexwheels_icon.png">
+    <menuitem id="flexwheels_menu_root" name="FlexWheels" web_icon="flexwheels,static/flexwheels_icon.png">
         <menuitem id="flexwheels_first_level_menu_menu" name="Menu">
             <menuitem id="car_menu_action" name="My Cars" action="car_action"/>
             <menuitem id="customer_menu_action" name="My Customers" action="customer_action"/>
@@ -8,7 +8,7 @@
         <menuitem id="flexwheels_first_level_menu_bookings" name="Bookings">
             <menuitem id="booking_menu_action" name="My Bookings" action="booking_action"/>
         </menuitem>
-        <menuitem id="flexwheels_first_level_menu_configuration" name="Configuration">
+        <menuitem id="flexwheels_first_level_menu_configuration" name="Configuration" groups="flexwheels.flexwheels_group_manager">
             <menuitem id="brand_menu_action" name="Brands" action="flexwheels_car_brand_action"/>
             <menuitem id="type_menu_action" name="Car Types" action="flexwheels_car_type_action"/>
             <menuitem id="tag_menu_action" name="Car Tags" action="flexwheels_car_tag_action"/>

@@ -4,7 +4,7 @@
   <record id="booking_action" model="ir.actions.act_window">
     <field name="name">Bookings</field>
     <field name="res_model">flexwheels.booking</field>
-    <field name="view_mode">tree,form,kanban</field>
+    <field name="view_mode">tree,form,kanban,graph,gantt</field>
     <field name="context">{'search_default_state': 1}</field>
     <field name="help" type="html">
       <p class="o_view_nocontent_smiling_face">
@@ -116,7 +116,7 @@
                 <group>
                   <field name="deposit_amount"/>
                   <field name="terms_and_conditions"/>
-                  <field name="agree_checkbox" string="I agree to the above terms and conditions"/>
+                  <field name="agree_checkbox" string="He/She agree to the above terms and conditions"/>
                 </group>
               </page>
             </notebook>
@@ -131,6 +131,38 @@
         </div>
       </form>
     </field>
+  </record>
+
+  <!-- Gantt View -->
+  <record id="flexwheels_booking_gantt" model="ir.ui.view">
+      <field name="name">flexwheels.booking.gantt</field>
+      <field name="model">flexwheels.booking</field>
+      <field name="type">gantt</field>
+      <field name="arch" type="xml">
+          <gantt date_start="pickup_information"
+          date_stop="drop_information"
+          color="car_id"
+          default_group_by="car_id"
+          decoration-info="state in ['draft']"
+          string="Bookings">
+
+          <field name="seq_name" />
+          <field name="state" invisible="1"/>
+          </gantt>
+      </field>
+  </record>
+
+  <!-- Graph View -->
+  <record model="ir.ui.view" id="flexwheels_booking_graph">
+      <field name="name">flexwheels.booking.graph</field>
+      <field name="model">flexwheels.booking</field>
+      <field name="type">graph</field>
+      <field name="arch" type="xml">
+          <graph string="Graph" type="bar">
+              <field name="booking_information" interval="day"/>
+              <field name="car_id"/>
+          </graph>
+      </field>
   </record>
 
   <!-- Search View -->

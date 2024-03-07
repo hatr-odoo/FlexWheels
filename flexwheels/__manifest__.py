@@ -8,6 +8,7 @@
     Description text
     """,
     'data': [
+        'security/security.xml',
         'security/ir.model.access.csv',
         'data/booking_sequence.xml',
         'wizard/flexwheels_booking_wizard.xml',
@@ -19,6 +20,12 @@
         'views/flexwheels_res_users_views.xml',
         'views/flexwheels_tag_views.xml',
         'views/flexwheels_menus.xml',
+    ],
+    'demo': [
+        'demo/flexwheels.car.brand.csv',
+        'demo/flexwheels.car.tag.csv',
+        'demo/flexwheels.car.type.csv',
+        'demo/demo_data.xml'
     ],
     'application': True,
     'installable': True,

@@ -18,8 +18,8 @@
     <field name="model">flexwheels.car</field>
     <field name="arch" type="xml">
       <tree string="Channel" decoration-success="is_available" decoration-muted="not is_available">
-        <field name="name" string="Name"/>
-        <field name="brand" string="Brand"/>
+        <field name="display_name" string="Name"/>
+        <field name="brand_id" string="Brand"/>
         <field name="variant" string="Variant"/>
         <field name="color" string="Color"/>
         <field name="mileage" string="Mileage"/>
@@ -48,7 +48,7 @@
             <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
             <group colspan="2">
               <group cols="1">
-                <field name="brand"/>
+                <field name="brand_id"/>
                 <field name="is_available"/>
                 <field name="kms_driven" />
               </group>
@@ -110,11 +110,11 @@
           <t t-name="kanban-box" >
             <div class="oe_kanban_global_click" t-att-style="record.is_available.raw_value ? '' : 'opacity: 0.5;'">
               <h3>
-                <field name="name"/>
+                <field name="display_name"/>
               </h3>
               <div>
                 <p>
-                  <field name="brand" />
+                  <field name="brand_id" />
                 </p>
                 <p>Price/hr:
                   <field name="price" />
@@ -129,6 +129,7 @@
       </kanban>
     </field>
   </record>
+
   <!--Search View-->
   <record id="car_model_search" model="ir.ui.view">
     <field name="name">flexwheels.car.search</field>
@@ -137,7 +138,7 @@
       <search>
         <!--Search Labels-->
         <field name="name" string="Name"/>
-        <field name="brand" string="Brand"/>
+        <field name="brand_id" string="Brand"/>
         <field name="variant" string="Variant"/>
         <field name="color" string="Color"/>
         <field name="mileage" string="Mileage"/>
@@ -151,7 +152,7 @@
         <filter string="Available" name="available" domain="[('is_available', '=', True)]"/>
         <!--Groupby-->
         <group>
-          <filter string="Brand" name="brand" context="{'group_by':'brand'}"/>
+          <filter string="Brand" name="brand_id" context="{'group_by':'brand_id'}"/>
           <filter string="Name" name="name" context="{'group_by':'name'}"/>
           <filter string="Variant" name="variant" context="{'group_by':'variant'}"/>
           <filter string="Color" name="color" context="{'group_by':'color'}"/>

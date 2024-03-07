@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- security groups -->
+    <record id="flexwheels_group_user" model="res.groups">
+        <field name="name">Agent</field>
+        <field name="category_id" ref="base.module_category_flexwheels_flexwheels"/>
+    </record>
+
+    <record id="flexwheels_group_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="base.module_category_flexwheels_flexwheels"/>
+        <field name="implied_ids" eval="[(4,ref('flexwheels.flexwheels_group_user'))]"/>
+        <field name="users" eval="[(4,ref('base.user_admin'))]"/>
+    </record>
+
+    <!-- Record rule to show user only their bookings -->
+    <record id="flexwheels_booking_rule_id" model="ir.rule">
+        <field name="name">To show user only their bookings</field>
+        <field name="model_id" ref="model_flexwheels_booking"/>
+        <field name="perm_read" eval="True"/>
+        <field name="groups" eval="[(4, ref('flexwheels_group_user'))]"/>
+        <field name="domain_force">['|', ('salesperson_id', '=', user.id), ('salesperson_id', '=', False)]</field>
+    </record>
+
+    <!-- Record rule to show manager all the bookings -->
+    <record id="flexwheels_booking_manager_rule_id" model="ir.rule">
+        <field name="name">To show manager all the properties</field>
+        <field name="model_id" ref="model_flexwheels_booking"/>
+        <field name="perm_read" eval="True"/>
+        <field name="groups" eval="[(4, ref('flexwheels_group_manager'))]"/>
+    </record>
+
+</odoo>
