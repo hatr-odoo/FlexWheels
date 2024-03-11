@@ -3,14 +3,13 @@
   <record id="customer_action" model="ir.actions.act_window">
     <field name="name">Customers</field>
     <field name="res_model">flexwheels.customer</field>
-    <field name="view_mode">tree,form</field>
+    <field name="view_mode">kanban,tree,form</field>
     <field name="help" type="html">
       <p class="o_view_nocontent_smiling_face">
             No customers found. Please add one!
           </p>
     </field>
   </record>
-
   <!--List View-->
   <record id="flexwheels_customer_view_tree" model="ir.ui.view">
     <field name="name">flexwheels.customer.tree</field>
@@ -24,7 +23,6 @@
       </tree>
     </field>
   </record>
-
   <!--Form View-->
   <record id="flexwheels_customer_form" model="ir.ui.view">
     <field name="name">flexwheels.customer.form</field>
@@ -32,11 +30,11 @@
     <field name="arch" type="xml">
       <form string="Idea form">
         <sheet>
-            <h1>
-                <field name="name" nolabel="1" placeholder='Eg: Rahul Kapur'/>
-                <field name="image" widget="image" class="oe_avatar" options="{'size': [150, 150]}" nolabel="1"/>
-            </h1>
-            <group>
+          <h1>
+            <field name="name" nolabel="1" placeholder='Eg: Rahul Kapur'/>
+            <field name="image" widget="image" class="oe_avatar" options="{'size': [150, 150]}" nolabel="1"/>
+          </h1>
+          <group>
             <group colspan="2">
               <group cols="1">
                 <field name="contact_number" placeholder='Eg: 1234567890'/>
@@ -44,7 +42,6 @@
               </group>
             </group>
           </group>
-
           <!--Personal Information-->
           <notebook>
             <page string="Personal Information">
@@ -60,7 +57,6 @@
             </page>
           </notebook>
         </sheet>
-      
         <!-- chatter -->
         <div class="oe_chatter">
           <field name="activity_ids"/>
@@ -71,7 +67,41 @@
       </form>
     </field>
   </record>
-
+  <!--Kanban View-->
+  <record id="felxwheels_customer_kanban" model="ir.ui.view">
+    <field name="name">flexwheels.customer.kanban</field>
+    <field name="model">flexwheels.customer</field>
+    <field name="arch" type="xml">
+      <kanban records_draggable="True">
+        <templates>
+          <t t-name="kanban-box" >
+            <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
+              <div class="o_kanban_image_fill_left">
+                <img alt="Contact image" t-att-src="kanban_image('flexwheels.customer', 'image', record.id.raw_value)"/>
+              </div>
+              <div  class="oe_kanban_details">
+                <h3>
+                  <field name="name"/>
+                </h3>
+                <div>
+                  <div>
+                    <b>
+                      <field name="city" />
+                    </b>
+                  </div>
+                  <div>
+                    <b>Occupation:
+                </b>
+                    <field name="occupation" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </t>
+        </templates>
+      </kanban>
+    </field>
+  </record>
   <!--Search View-->
   <record id="flexwheels_customer_search" model="ir.ui.view">
     <field name="name">flexwheels.customer.search</field>
@@ -82,10 +112,10 @@
         <field name="occupation" string="Occupation" />
         <field name="contact_number" string="Contact Number" />
         <field name="city" string="City" />
-        <!-- <filter string="Availability" name="state" domain="['|', ('state','=','New'), ('state', '=','Offer Received')]"/> -->
         <group>
           <filter string="Occupation" name="occupation" context="{'group_by':'occupation'}"/>
           <filter string="City" name="city" context="{'group_by':'city'}"/>
+          <filter string="State" name="state" context="{'group_by':'state'}"/>
         </group>
       </search>
     </field>

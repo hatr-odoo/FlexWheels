@@ -4,7 +4,7 @@
   <record id="booking_action" model="ir.actions.act_window">
     <field name="name">Bookings</field>
     <field name="res_model">flexwheels.booking</field>
-    <field name="view_mode">tree,form,kanban,graph,gantt</field>
+    <field name="view_mode">kanban,tree,form,graph,gantt</field>
     <field name="context">{'search_default_state': 1}</field>
     <field name="help" type="html">
       <p class="o_view_nocontent_smiling_face">
@@ -12,7 +12,6 @@
           </p>
     </field>
   </record>
-
   <!--Action for Stat Button-->
   <record id="booking_stat_button_action" model="ir.actions.act_window">
     <field name="name">Bookings</field>
@@ -25,7 +24,6 @@
           </p>
     </field>
   </record>
-  
   <!--List View-->
   <record id="booking_model_view_tree" model="ir.ui.view">
     <field name="name">flexwheels.booking.tree</field>
@@ -35,13 +33,12 @@
         <field name="seq_name" string="Booking Number" />
         <field name="customer_id" string="Customer"/>
         <field name="car_id" string="Car"/>
-        <field name="booking_information" string="Booking Information"/>
+        <field name="pickup_information" string="Booking Information"/>
         <field name="state" optional="hide" invisible="1"/>
         <field name="drop_information" string="Drop Information"/>
       </tree>
     </field>
   </record>
-
   <!--Kanban View-->
   <record id="felxwheels_booking_kanban" model="ir.ui.view">
     <field name="name">flexwheels.booking.kanban</field>
@@ -52,22 +49,32 @@
         <templates>
           <t t-name="kanban-box" >
             <div class="oe_kanban_global_click">
-              <h3>
-                <field name="seq_name"/>
-              </h3>
               <div>
-                <p>Customer:
+                <h3>
+                  <field name="seq_name"/>
+                </h3>
+              </div>
+              <div>
+                <div>
+                  <b>Customer:
+                </b>
                   <field name="customer_id" />
-                </p>
-                <p>Car:
+                </div>
+                <div>
+                  <b>Car:
+                </b>
                   <field name="car_id" />
-                </p>
-                <p>Pickup Date:
+                </div>
+                <div>
+                  <b>Pickup Date:
+                </b>
                   <field name="pickup_information" />
-                </p>
-                <p>Drop Date:
+                </div>
+                <div>
+                  <b>Drop Date:
+                </b>
                   <field name="drop_information" />
-                </p>
+                </div>
               </div>
             </div>
           </t>
@@ -75,7 +82,6 @@
       </kanban>
     </field>
   </record>
-
   <!-- Form View-->
   <record id="car_model_form" model="ir.ui.view">
     <field name="name">flexwheels.booking.form</field>
@@ -86,7 +92,6 @@
           <button name="action_confirm" class="btn-primary" type="object" string="Confirm" invisible="not state=='draft'"/>
           <button name="action_ongoing" class="btn-primary" type="object" string="Ongoing" invisible="not state=='confirm'"/>
           <button string="Done" name="flexwheels.flexwheels_booking_wizard_action" type="action" class="oe_highlight" invisible="not state=='ongoing'"/>
-        
           <button name="action_cancel" type="object" string="Cancel" invisible="not state=='confirm'"/>
           <field name="state" widget="statusbar" statusbar_visible="draft,confirm,ongoing,done"/>
         </header>
@@ -99,15 +104,15 @@
             </group>
             <group colspan="2">
               <group cols="1">
-                <field name="customer_id"/>
                 <field name="pickup_information"/>
-                <field name="car_id" string="Car" domain="[('is_available', '=', True)]"/>
+                <field name="customer_id" invisible="not pickup_information or not drop_information"/>
+                <field name="salesperson_id"/>
+                <field name="available_customer_ids" invisible="1"/>
               </group>
               <group cols="2">
-                <field name="booking_information"/>
                 <field name="drop_information"/>
-                <field name="state"/>
-                <field name="salesperson_id"/>
+                <field name="car_id" string="Car" invisible="not pickup_information or not drop_information"/>
+                <field name="available_car_ids" invisible="1"/>
               </group>
             </group>
             <notebook>
@@ -132,46 +137,53 @@
       </form>
     </field>
   </record>
-
   <!-- Gantt View -->
   <record id="flexwheels_booking_gantt" model="ir.ui.view">
-      <field name="name">flexwheels.booking.gantt</field>
-      <field name="model">flexwheels.booking</field>
-      <field name="type">gantt</field>
-      <field name="arch" type="xml">
-          <gantt date_start="pickup_information"
+    <field name="name">flexwheels.booking.gantt</field>
+    <field name="model">flexwheels.booking</field>
+    <field name="type">gantt</field>
+    <field name="arch" type="xml">
+      <gantt date_start="pickup_information"
           date_stop="drop_information"
           color="car_id"
           default_group_by="car_id"
+          default_scale = 'month'
           decoration-info="state in ['draft']"
+          precision="{'day': 'hour:quarter', 'week': 'day:half', 'month': 'day:half', 'year': 'day:full'}"
           string="Bookings">
-
-          <field name="seq_name" />
-          <field name="state" invisible="1"/>
-          </gantt>
-      </field>
+        <field name="seq_name" />
+        <field name="state" invisible="1"/>
+      </gantt>
+    </field>
   </record>
-
   <!-- Graph View -->
   <record model="ir.ui.view" id="flexwheels_booking_graph">
-      <field name="name">flexwheels.booking.graph</field>
-      <field name="model">flexwheels.booking</field>
-      <field name="type">graph</field>
-      <field name="arch" type="xml">
-          <graph string="Graph" type="bar">
-              <field name="booking_information" interval="day"/>
-              <field name="car_id"/>
-          </graph>
-      </field>
+    <field name="name">flexwheels.booking.graph</field>
+    <field name="model">flexwheels.booking</field>
+    <field name="type">graph</field>
+    <field name="arch" type="xml">
+      <graph string="Graph" type="bar">
+        <field name="booking_information" interval="day"/>
+        <field name="car_id"/>
+      </graph>
+    </field>
   </record>
-
   <!-- Search View -->
   <record id="flexwheels_booking_search" model="ir.ui.view">
     <field name="name">flexwheels.booking.search</field>
     <field name="model">flexwheels.booking</field>
     <field name="arch" type="xml">
       <search string="Property Search">
-        <filter string="Status" name="state" domain="['!',('state','=','cancelled')]"/>
+        <field name="customer_id" />
+        <field name="car_id" />
+        <field name="car_type_id" />
+        <field name="price" filter_domain="[('price', '>=', self)]" />
+        <field name="deposit_amount" filter_domain="[('deposit_amount', '>=', self)]" />
+        <filter string="Availability" name="state" domain="['!',('state','=','cancelled')]"/>
+        <group>
+          <filter name="customer_id" string="Customer" context="{'group_by': 'customer_id'}" />
+          <filter name="car_id" string="Car" context="{'group_by': 'car_id'}" />
+        </group>
       </search>
     </field>
   </record>

@@ -7,11 +7,13 @@ class flexwheelsBooking(models.Model):
     _description = "Flexwheels Booking"
     _inherit = ['mail.thread', 'mail.activity.mixin']
     
-    customer_id=fields.Many2one('flexwheels.customer', string="Customer", required=True)
     salesperson_id=fields.Many2one('res.users', default= lambda self: self.env.user, tracking=True)
-    car_id=fields.Many2one('flexwheels.car', string="Car", required=True)
+    available_car_ids = fields.Many2many('flexwheels.car', compute='_compute_available_cars_and_customers')
+    available_customer_ids = fields.Many2many('flexwheels.customer', compute='_compute_available_cars_and_customers')
+    customer_id=fields.Many2one('flexwheels.customer', string="Customer", required=True, domain="[('id', 'in', available_customer_ids)]")
+    car_id = fields.Many2one('flexwheels.car', string="Car", required=True, domain="[('id', 'in', available_car_ids)]")
     car_type_id = fields.Many2one(related='car_id.car_type_id')
-    price=fields.Float('flexwheels.car', related='car_id.price')
+    price=fields.Float(related='car_id.price', string="Price (₹/hr)")
     deposit_amount=fields.Float(compute='_compute_deposit_amount', readonly=True)
     booking_information=fields.Datetime(required=True, default=fields.Datetime.now(), readonly=True)
     pickup_information=fields.Datetime(required=True)
@@ -92,3 +94,39 @@ class flexwheelsBooking(models.Model):
         for record in self:
             if not (record.state=='draft' or record.state=='cancelled'):
                 raise UserError('Cannot delete an active booking.')
+    
+    @api.depends('pickup_information', 'drop_information')
+    def _compute_available_cars_and_customers(self):
+        for record in self:
+            if record.pickup_information and record.drop_information:
+                
+                conflicting_bookings = self.env['flexwheels.booking'].search([
+                    ('state', 'in', ['confirm', 'ongoing']),
+                    '|',
+                    '&', ('pickup_information', '<', record.drop_information),
+                        ('pickup_information', '>', record.pickup_information),
+                    '&', ('drop_information', '>', record.pickup_information),
+                        ('drop_information', '<', record.drop_information),
+                ])
+                conflicting_car_ids = conflicting_bookings.mapped('car_id.id')
+                conflicting_customer_ids = conflicting_bookings.mapped('customer_id.id')
+                
+                record.available_car_ids = self.env['flexwheels.car'].search([
+                    ('is_available', '=', True),
+                    ('id', 'not in', conflicting_car_ids)
+                ])
+                
+                record.available_customer_ids = self.env['flexwheels.customer'].search([
+                    ('id', 'not in', conflicting_customer_ids)
+                ])
+            else:
+                record.available_car_ids = self.env['flexwheels.car'].search([])
+                record.available_customer_ids = self.env['flexwheels.customer'].search([])
+                
+    @api.onchange('pickup_information', 'drop_information')
+    def _onchange_dates(self):
+        self._compute_available_cars_and_customers()
+        return {
+            'domain': {'car_id': [('id', 'in', self.available_car_ids.ids)], 
+                       'customer_id': [('id', 'in', self.available_customer_ids.ids)]}
+        }

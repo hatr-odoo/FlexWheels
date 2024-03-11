@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Template for car list -->
+    <template id="flexwheels_car_list">
+        <style>
+            .card {
+                        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25);
+                        transition: transform 0.25s ease;
+                    }
+            .container:hover .card {
+                filter: blur(1px);
+                opacity:0.8;
+                }
+            .container .card:hover {
+            filter: blur(0);
+            opacity:1;
+            transform: scale(1.05);
+            }
+        </style>
+        <t t-call="website.layout">
+            <t t-set="title">Cars</t>
+            <div class="container" style="margin-top: 15px; margin-bottom: 15px">
+
+                <!-- Filter Form Section -->
+                <div class="row" style="margin-top: 100px;">
+                    <div class='col'>
+                        <h2>Listed Cars</h2>
+                    </div>
+                    <div class='col'>
+                        <div class="car-filter-container" style="margin-bottom: 25px; text-align: right; margin-top: -60px;">
+                            <form action="/cars" method="get" class="car-filter-form" style="display: inline-block; text-align: left;">
+                                <label for="datepicker" class="form-label" style="font-size: 18px; color: #333;">Search for cars listed after:</label>
+                                <div style="display: flex;">
+                                    <input type="date" id="datepicker" class="form-control" name="filter_date" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; margin-right: 10px; width: 200px;" t-att-value="filter_date"/>
+                                    <button type="submit" class="btn btn-primary" style="padding: 10px 20px; border-radius: 5px; color: #fff; border: none;">Search</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Car Card -->
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <t t-foreach="cars" t-as="car">
+                        <div class="col">
+                            <div class="card h-100">
+                                <!-- Image -->
+                                <t t-if="car.image">
+                                    <img t-attf-src="data:image/png;base64,{{car.image}}" class=" img-fluid" style="object-fit: cover; width: 500px; height: 250px"/>
+                                </t>
+                                <t t-else="">
+                                    <img src="car/static/na.jpg" class="card-img-top img-fluid" style="object-fit: cover; width: 500px; height: 250px" />
+                                </t>
+
+
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <hr style="background-color: #714B67"/>
+
+                                    <!-- Name -->
+                                    <h5 class="card-title" style="margin-top: 10px">
+                                        <strong>
+                                            <t t-esc="car.name"/>
+                                        </strong>
+                                    </h5>
+
+                                    <!-- Car Type -->
+                                    <p class="card-subtitle mb-2 text-body-secondary" style="margin-top: 10px">
+                                        <strong>Type: </strong>
+                                        <t t-esc="car.car_type_id.name"/>
+                                    </p>
+
+                                    <!-- Additional Features -->
+                                    <t t-if="car.additional_features">
+                                        <p class="card-text" style="height: 20px; overflow: hidden;">
+                                            <strong>Additional Features: </strong>
+                                            <t t-esc="car.additional_features"/>
+                                        </p>
+                                    </t>
+                                    <t t-else="">
+                                        <p class="card-text">
+                                            <strong>Additional Features: </strong>No features available for this car.
+                                        </p>
+                                    </t>
+                                    <hr style="background-color: #714B67"/>
+
+                                    <!-- Brand -->
+                                    <p class="card-text">
+                                        <strong>Brand: </strong>
+                                        <t t-esc="car.brand_id.name"/>
+                                    </p>
+
+                                    <!-- Price -->
+                                    <p class="card-text">
+                                        <strong>Price: </strong>
+                                        ₹<t t-esc="car.price"/>/hr
+                                    </p>
+
+                                    <hr style="background-color: #714B67"/>
+
+                                    <!-- Tags -->
+                                    <div class="d-flex flex-row">
+                                        <strong>Tags: </strong>
+                                        <div class="ms-2 d-flex flex-row">
+                                            <div t-foreach="car.tag_ids" t-as="tag" t-esc="tag.name" t-attf-class="badge rounded-pill o_tag o_tag_color_#{tag.color} d-inline-block" style="padding:5px 10px; margin-right:4px;"/>
+                                            </div>
+                                    </div>
+                                </div>
+
+                                <!-- Explore Button -->
+                                <div class="card-footer d-flex justify-content-end">
+                                    <button type="button" class="btn btn-primary">
+                                        <a t-att-href="'/cars/' + str(car.id)" style="color: white;">Explore now</a>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+
+                <!-- For Pagination -->
+                <div t-if="pager" class="o_portal_pager d-flex justify-content-center mb-5" style="margin-top: 20px">
+                    <t t-call="website.pager" />
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Template for individual cars -->
+    <template id="car_index">
+        <t t-call="website.layout">
+            <t t-set="title">Car</t>
+            <div class="container" style="padding-top: 20px; padding-bottom: 20px;">
+                <div style="border: 1px solid #dee2e6; border-radius: 5px; overflow: hidden;">
+                    <div class="row border rounded p-4 mb-4" style="padding: 20px">
+                        <!-- Car Image -->
+                        <div class="col-md-6">
+                            <t t-if="car.image">
+                                <img t-attf-src="data:image/png;base64,{{car.image}}" alt="Car Image" style="width: 100%; height: 100%;"/>
+                            </t>
+                            <t t-else="">
+                                <img src="flexwheels/static/na.jpg" alt="No image available" style="width: 100%; height: 100%;"/>
+                            </t>
+                        </div>
+                        <!-- car Details -->
+                        <div class="col-md-6">
+                            <div style="padding: 20px;">
+                                <!-- Name -->
+                                <h2 style="margin-top: 0;">
+                                    <t t-esc="car.name"/>
+                                </h2>
+                                <!-- Additional Features -->
+                                <t t-if="car.additional_features">
+                                    <div style="margin-bottom: 0px; height: 25px; overflow: hidden;">
+                                        <t t-esc="car.additional_features"/>
+                                    </div>
+                                </t>
+
+                                <!-- Tags -->
+                                <div class="d-flex flex-row" style="margin-top: 10px">
+                                            Tags:
+                                    <div class="ms-2 d-flex flex-row">
+                                        <div t-foreach="car.tag_ids" t-as="tag" t-esc="tag.name" t-attf-class="badge rounded-pill o_tag o_tag_color_#{tag.color} d-inline-block" style="padding:5px 10px; margin-right:4px;"/>
+                                            </div>
+                                </div>
+
+                                <!-- Price -->
+                                <div style="margin-bottom: 0px; margin-top: 10px; height: 25px; overflow: hidden;">
+                                                Rent@ ₹<t t-esc="car.price"/>/hr
+                                </div>
+
+                                <!-- Specifications -->
+                                <div>
+                                    <div style="margin-top: 20px; margin-botttom: 0px">
+                                        <h5> Specifications </h5>
+                                        <hr style="background-color: #714B67; margin-top: 5px"/>
+                                    </div>
+
+                                    <!-- Car Type -->
+                                    <div>Type:
+                                        <t t-esc="car.car_type_id.name"/>
+                                    </div>
+
+                                    <!-- Brand -->
+                                    <div>Brand:
+                                        <t t-esc="car.brand_id.name"/>
+                                    </div>
+
+                                    <!-- Year of Manufacturing -->
+                                    <div>Year of Manufacturing:
+                                        <t t-esc="car.year_of_manufacturing"/>
+                                    </div>
+
+                                    <!-- Condition -->
+                                    <div>Condition:
+                                        <t t-esc="car.condition"/>
+                                    </div>
+
+                                    <!-- Variant -->
+                                    <div>Variant:
+                                        <t t-esc="car.variant"/>
+                                    </div>
+
+                                    <!-- Color -->
+                                    <div>Color:
+                                        <t t-esc="car.color"/>
+                                    </div>
+
+                                    <!-- Mileage -->
+                                    <div>Mileage:
+                                        <t t-esc="car.mileage"/>
+                                    </div>
+
+                                    <!-- Fuel Type -->
+                                    <div>Fuel Type:
+                                        <t t-esc="car.fuel_type"/>
+                                    </div>
+
+                                    <!-- Transmission -->
+                                    <div>Transmission:
+                                        <t t-esc="car.transmission"/>
+                                    </div>
+
+                                    <!-- Seating Capacity -->
+                                    <div>Seating Capacity:
+                                        <t t-esc="car.seating_capacity"/>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </t>
+    </template>
+</odoo>

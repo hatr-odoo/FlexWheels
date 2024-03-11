@@ -1,5 +1,11 @@
 <?xml version="1.0"?>
 <odoo>
+    <record id="my_menu" model="website.menu">
+        <field name="name">Cars</field>
+        <field name="url">/cars</field>
+        <field name="parent_id" ref="website.main_menu"/>
+    </record>
+
     <menuitem id="flexwheels_menu_root" name="FlexWheels" web_icon="flexwheels,static/flexwheels_icon.png">
         <menuitem id="flexwheels_first_level_menu_menu" name="Menu">
             <menuitem id="car_menu_action" name="My Cars" action="car_action"/>

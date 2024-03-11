@@ -28,7 +28,7 @@ class flexwheelsCar(models.Model):
                     ],
         required=True,
     )
-    price = fields.Float(required=True)
+    price = fields.Float(required=True, string="Price (₹/hr)")
     years_tuple=[(str(year), str(year)) for year in range(fields.Date.today().year, 1884, -1)]
     year_of_manufacturing = fields.Selection(
         years_tuple, 

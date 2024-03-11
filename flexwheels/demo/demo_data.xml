@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <odoo>
-    <!--Car demo data-->
+    <!-- Car demo data -->
     <record id="flexwheels_car_1" model="flexwheels.car">
         <field name="name">Swift</field>
         <field name="brand_id" ref="car_brand_1"/>
@@ -41,10 +41,10 @@
         <field name="mileage">17</field>
         <field name="transmission">automatic</field>
         <field name="seating_capacity">5</field>
-        <field name="tag_ids" eval="[Command.link(ref('car_tag_1')), Command.link(ref('car_tag_2')), Command.link(ref('car_tag_8')), Command.link(ref('car_tag_11')), Command.link(ref('car_tag_13')), Command.link(ref('car_tag_14'))]"/>
+        <field name="tag_ids" eval="[Command.link(ref('car_tag_2')), Command.link(ref('car_tag_11')), Command.link(ref('car_tag_13')), Command.link(ref('car_tag_14'))]"/>
     </record>
     <record id="flexwheels_car_3" model="flexwheels.car">
-        <field name="name">XUV 700</field>
+        <field name="name">XUV700</field>
         <field name="brand_id" ref="car_brand_2"/>
         <field name="image" type="base64" file="flexwheels/static/XUV700.webp"/>
         <field name="car_type_id" ref="car_type_3"/>
@@ -62,9 +62,8 @@
         <field name="mileage">12</field>
         <field name="transmission">automatic</field>
         <field name="seating_capacity">7</field>
-        <field name="tag_ids" eval="[Command.link(ref('car_tag_2')), Command.link(ref('car_tag_5')), Command.link(ref('car_tag_8')), Command.link(ref('car_tag_12')), Command.link(ref('car_tag_13')), Command.link(ref('car_tag_14')), Command.link(ref('car_tag_15'))]"/>
+        <field name="tag_ids" eval="[Command.link(ref('car_tag_5')), Command.link(ref('car_tag_13')), Command.link(ref('car_tag_15'))]"/>
     </record>
-
     <record id="flexwheels_car_4" model="flexwheels.car">
         <field name="name">Altroz</field>
         <field name="brand_id" ref="car_brand_3"/>
@@ -86,7 +85,6 @@
         <field name="seating_capacity">5</field>
         <field name="tag_ids" eval="[Command.link(ref('car_tag_5')), Command.link(ref('car_tag_8')), Command.link(ref('car_tag_11'))]"/>
     </record>
-
     <record id="flexwheels_car_5" model="flexwheels.car">
         <field name="name">Baleno</field>
         <field name="brand_id" ref="car_brand_1"/>
@@ -108,7 +106,6 @@
         <field name="seating_capacity">5</field>
         <field name="tag_ids" eval="[Command.link(ref('car_tag_1')), Command.link(ref('car_tag_10')), Command.link(ref('car_tag_13'))]"/>
     </record>
-
     <record id="flexwheels_car_6" model="flexwheels.car">
         <field name="name">Venue</field>
         <field name="brand_id" ref="car_brand_4"/>
@@ -130,7 +127,6 @@
         <field name="seating_capacity">5</field>
         <field name="tag_ids" eval="[Command.link(ref('car_tag_2')), Command.link(ref('car_tag_9')), Command.link(ref('car_tag_16'))]"/>
     </record>
-
     <record id="flexwheels_car_7" model="flexwheels.car">
         <field name="name">Nexon</field>
         <field name="brand_id" ref="car_brand_3"/>
@@ -152,8 +148,6 @@
         <field name="seating_capacity">5</field>
         <field name="tag_ids" eval="[Command.link(ref('car_tag_12')), Command.link(ref('car_tag_15')), Command.link(ref('car_tag_17'))]"/>
     </record>
-
-
     <!-- customer demo data -->
     <record id="flexwheels_customer_1" model="flexwheels.customer">
         <field name="name">Rajesh Kumar</field>
@@ -168,7 +162,6 @@
         <field name="occupation">Software Engineer</field>
         <field name="emergency_contact_number">9876543211</field>
     </record>
-
     <record id="flexwheels_customer_2" model="flexwheels.customer">
         <field name="name">Anita Singh</field>
         <field name="license">MH-0619850034761</field>
@@ -182,7 +175,6 @@
         <field name="occupation">Doctor</field>
         <field name="emergency_contact_number">8765432110</field>
     </record>
-
     <record id="flexwheels_customer_3" model="flexwheels.customer">
         <field name="name">Suresh Patel</field>
         <field name="license">GJ-0619850034761</field>
@@ -196,7 +188,6 @@
         <field name="occupation">Businessman</field>
         <field name="emergency_contact_number">7654321099</field>
     </record>
-
     <record id="flexwheels_customer_4" model="flexwheels.customer">
         <field name="name">Priya Gupta</field>
         <field name="license">KA-0619850034761</field>
@@ -210,124 +201,164 @@
         <field name="occupation">Teacher</field>
         <field name="emergency_contact_number">6543210988</field>
     </record>
-
+    <record id="flexwheels_customer_5" model="flexwheels.customer">
+        <field name="name">Amit Sharma</field>
+        <field name="license">UP-0619850034761</field>
+        <field name="address">789, LMN Street</field>
+        <field name="city">Lucknow</field>
+        <field name="image" type="base64" file="flexwheels/static/person.jpg"/>
+        <field name="license_image" type="base64" file="flexwheels/static/license.webp"/>
+        <field name="state">uttar pradesh</field>
+        <field name="contact_number">5432109876</field>
+        <field name="birth_date">1980-10-05</field>
+        <field name="occupation">Accountant</field>
+        <field name="emergency_contact_number">5432109877</field>
+    </record>
+    <record id="flexwheels_customer_6" model="flexwheels.customer">
+        <field name="name">Neha Verma</field>
+        <field name="license">RJ-0619850034761</field>
+        <field name="address">456, STU Colony</field>
+        <field name="city">Jaipur</field>
+        <field name="image" type="base64" file="flexwheels/static/person.jpg"/>
+        <field name="license_image" type="base64" file="flexwheels/static/license.webp"/>
+        <field name="state">rajasthan</field>
+        <field name="contact_number">4321098765</field>
+        <field name="birth_date">1987-07-15</field>
+        <field name="occupation">HR Manager</field>
+        <field name="emergency_contact_number">4321098766</field>
+    </record>
+    <record id="flexwheels_customer_7" model="flexwheels.customer">
+        <field name="name">Vikram Singh</field>
+        <field name="license">PB-0619850034761</field>
+        <field name="address">123, GHI Street</field>
+        <field name="city">Chandigarh</field>
+        <field name="image" type="base64" file="flexwheels/static/person.jpg"/>
+        <field name="license_image" type="base64" file="flexwheels/static/license.webp"/>
+        <field name="state">punjab</field>
+        <field name="contact_number">3210987654</field>
+        <field name="birth_date">1995-12-20</field>
+        <field name="occupation">Marketing Executive</field>
+        <field name="emergency_contact_number">3210987655</field>
+    </record>
     <!-- Booking demo data -->
     <record id="flexwheels_booking_1" model="flexwheels.booking">
         <field name="customer_id" ref="flexwheels_customer_1"/>
         <field name="car_id" ref="flexwheels_car_1"/>
-        <field name="pickup_information">2024-03-06 10:00:00</field>
-        <field name="drop_information">2024-03-08 18:00:00</field>
-        <field name="state">done</field>
+        <field name="pickup_information">2024-01-15 10:00:00</field>
+        <field name="drop_information">2024-01-17 18:00:00</field>
+        <field name="state">draft</field>
         <field name="agree_checkbox" eval="True"/>
     </record>
-
     <record id="flexwheels_booking_2" model="flexwheels.booking">
         <field name="customer_id" ref="flexwheels_customer_2"/>
         <field name="car_id" ref="flexwheels_car_2"/>
-        <field name="pickup_information">2024-03-10 09:30:00</field>
-        <field name="drop_information">2024-03-12 16:30:00</field>
-        <field name="state">cancelled</field>
+        <field name="pickup_information">2024-01-25 09:00:00</field>
+        <field name="drop_information">2024-01-27 17:00:00</field>
+        <field name="state">done</field>
         <field name="agree_checkbox" eval="True"/>
     </record>
-
     <record id="flexwheels_booking_3" model="flexwheels.booking">
         <field name="customer_id" ref="flexwheels_customer_3"/>
         <field name="car_id" ref="flexwheels_car_3"/>
-        <field name="pickup_information">2024-03-14 11:00:00</field>
-        <field name="drop_information">2024-03-16 19:00:00</field>
+        <field name="pickup_information">2024-02-05 08:00:00</field>
+        <field name="drop_information">2024-02-07 16:00:00</field>
         <field name="state">confirm</field>
         <field name="agree_checkbox" eval="True"/>
     </record>
-
     <record id="flexwheels_booking_4" model="flexwheels.booking">
         <field name="customer_id" ref="flexwheels_customer_4"/>
         <field name="car_id" ref="flexwheels_car_4"/>
-        <field name="pickup_information">2024-03-20 08:00:00</field>
-        <field name="drop_information">2024-03-22 14:00:00</field>
-        <field name="state">draft</field>
+        <field name="pickup_information">2024-02-15 07:00:00</field>
+        <field name="drop_information">2024-02-17 15:00:00</field>
+        <field name="state">done</field>
         <field name="agree_checkbox" eval="True"/>
     </record>
-
     <record id="flexwheels_booking_5" model="flexwheels.booking">
-        <field name="customer_id" ref="flexwheels_customer_1"/>
-        <field name="car_id" ref="flexwheels_car_2"/>
-        <field name="pickup_information">2024-03-25 10:30:00</field>
-        <field name="drop_information">2024-03-27 17:00:00</field>
-        <field name="state">draft</field>
+        <field name="customer_id" ref="flexwheels_customer_5"/>
+        <field name="car_id" ref="flexwheels_car_5"/>
+        <field name="pickup_information">2024-02-25 06:00:00</field>
+        <field name="drop_information">2024-02-27 14:00:00</field>
+        <field name="state">cancelled</field>
         <field name="agree_checkbox" eval="True"/>
     </record>
-
     <record id="flexwheels_booking_6" model="flexwheels.booking">
-        <field name="customer_id" ref="flexwheels_customer_2"/>
-        <field name="car_id" ref="flexwheels_car_3"/>
-        <field name="pickup_information">2024-04-02 09:00:00</field>
-        <field name="drop_information">2024-04-04 15:30:00</field>
-        <field name="state">confirm</field>
+        <field name="customer_id" ref="flexwheels_customer_6"/>
+        <field name="car_id" ref="flexwheels_car_6"/>
+        <field name="pickup_information">2024-03-05 10:00:00</field>
+        <field name="drop_information">2024-03-07 18:00:00</field>
+        <field name="state">draft</field>
         <field name="agree_checkbox" eval="True"/>
     </record>
-
     <record id="flexwheels_booking_7" model="flexwheels.booking">
-        <field name="customer_id" ref="flexwheels_customer_3"/>
-        <field name="car_id" ref="flexwheels_car_1"/>
-        <field name="pickup_information">2024-04-08 11:30:00</field>
-        <field name="drop_information">2024-04-10 18:00:00</field>
+        <field name="customer_id" ref="flexwheels_customer_1"/>
+        <field name="car_id" ref="flexwheels_car_7"/>
+        <field name="pickup_information">2024-03-15 09:00:00</field>
+        <field name="drop_information">2024-03-17 17:00:00</field>
         <field name="state">done</field>
         <field name="agree_checkbox" eval="True"/>
     </record>
-
     <record id="flexwheels_booking_8" model="flexwheels.booking">
-        <field name="customer_id" ref="flexwheels_customer_4"/>
-        <field name="car_id" ref="flexwheels_car_2"/>
-        <field name="pickup_information">2024-04-15 08:00:00</field>
-        <field name="drop_information">2024-04-17 14:00:00</field>
-        <field name="state">done</field>
-        <field name="agree_checkbox" eval="True"/>
-    </record>
-
-    <record id="flexwheels_booking_9" model="flexwheels.booking">
-        <field name="customer_id" ref="flexwheels_customer_1"/>
-        <field name="car_id" ref="flexwheels_car_3"/>
-        <field name="pickup_information">2024-04-20 10:30:00</field>
-        <field name="drop_information">2024-04-22 17:00:00</field>
-        <field name="state">draft</field>
-        <field name="agree_checkbox" eval="True"/>
-    </record>
-
-    <record id="flexwheels_booking_10" model="flexwheels.booking">
-        <field name="customer_id" ref="flexwheels_customer_2"/>
-        <field name="car_id" ref="flexwheels_car_1"/>
-        <field name="pickup_information">2024-04-25 09:00:00</field>
-        <field name="drop_information">2024-04-27 15:30:00</field>
-        <field name="state">cancelled</field>
-        <field name="agree_checkbox" eval="True"/>
-    </record>
-
-    <record id="flexwheels_booking_11" model="flexwheels.booking">
-        <field name="customer_id" ref="flexwheels_customer_3"/>
-        <field name="car_id" ref="flexwheels_car_2"/>
-        <field name="pickup_information">2024-05-02 11:30:00</field>
-        <field name="drop_information">2024-05-04 18:00:00</field>
-        <field name="state">draft</field>
-        <field name="agree_checkbox" eval="True"/>
-    </record>
-
-    <record id="flexwheels_booking_12" model="flexwheels.booking">
-        <field name="customer_id" ref="flexwheels_customer_4"/>
-        <field name="car_id" ref="flexwheels_car_3"/>
-        <field name="pickup_information">2024-05-08 08:00:00</field>
-        <field name="drop_information">2024-05-10 14:00:00</field>
-        <field name="state">cancelled</field>
-        <field name="agree_checkbox" eval="True"/>
-    </record>
-
-    <record id="flexwheels_booking_13" model="flexwheels.booking">
         <field name="customer_id" ref="flexwheels_customer_1"/>
         <field name="car_id" ref="flexwheels_car_1"/>
-        <field name="pickup_information">2024-05-15 10:30:00</field>
-        <field name="drop_information">2024-05-17 17:00:00</field>
+        <field name="pickup_information">2024-03-25 08:00:00</field>
+        <field name="drop_information">2024-03-27 16:00:00</field>
         <field name="state">confirm</field>
         <field name="agree_checkbox" eval="True"/>
     </record>
-
-
+    <record id="flexwheels_booking_9" model="flexwheels.booking">
+        <field name="customer_id" ref="flexwheels_customer_3"/>
+        <field name="car_id" ref="flexwheels_car_2"/>
+        <field name="pickup_information">2024-04-05 07:00:00</field>
+        <field name="drop_information">2024-04-07 15:00:00</field>
+        <field name="state">done</field>
+        <field name="agree_checkbox" eval="True"/>
+    </record>
+    <record id="flexwheels_booking_10" model="flexwheels.booking">
+        <field name="customer_id" ref="flexwheels_customer_7"/>
+        <field name="car_id" ref="flexwheels_car_3"/>
+        <field name="pickup_information">2024-04-15 06:00:00</field>
+        <field name="drop_information">2024-04-17 14:00:00</field>
+        <field name="state">cancelled</field>
+        <field name="agree_checkbox" eval="True"/>
+    </record>
+    <record id="flexwheels_booking_11" model="flexwheels.booking">
+        <field name="customer_id" ref="flexwheels_customer_6"/>
+        <field name="car_id" ref="flexwheels_car_4"/>
+        <field name="pickup_information">2024-04-25 10:00:00</field>
+        <field name="drop_information">2024-04-27 18:00:00</field>
+        <field name="state">draft</field>
+        <field name="agree_checkbox" eval="True"/>
+    </record>
+    <record id="flexwheels_booking_12" model="flexwheels.booking">
+        <field name="customer_id" ref="flexwheels_customer_5"/>
+        <field name="car_id" ref="flexwheels_car_5"/>
+        <field name="pickup_information">2024-05-05 09:00:00</field>
+        <field name="drop_information">2024-05-07 17:00:00</field>
+        <field name="state">cancelled</field>
+        <field name="agree_checkbox" eval="True"/>
+    </record>
+    <record id="flexwheels_booking_13" model="flexwheels.booking">
+        <field name="customer_id" ref="flexwheels_customer_7"/>
+        <field name="car_id" ref="flexwheels_car_6"/>
+        <field name="pickup_information">2024-05-15 08:00:00</field>
+        <field name="drop_information">2024-05-17 16:00:00</field>
+        <field name="state">confirm</field>
+        <field name="agree_checkbox" eval="True"/>
+    </record>
+    <record id="flexwheels_booking_14" model="flexwheels.booking">
+        <field name="customer_id" ref="flexwheels_customer_2"/>
+        <field name="car_id" ref="flexwheels_car_7"/>
+        <field name="pickup_information">2024-05-25 07:00:00</field>
+        <field name="drop_information">2024-05-27 15:00:00</field>
+        <field name="state">done</field>
+        <field name="agree_checkbox" eval="True"/>
+    </record>
+    <record id="flexwheels_booking_15" model="flexwheels.booking">
+        <field name="customer_id" ref="flexwheels_customer_4"/>
+        <field name="car_id" ref="flexwheels_car_1"/>
+        <field name="pickup_information">2024-06-05 06:00:00</field>
+        <field name="drop_information">2024-06-07 14:00:00</field>
+        <field name="state">cancelled</field>
+        <field name="agree_checkbox" eval="True"/>
+    </record>
 </odoo>

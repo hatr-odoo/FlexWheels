@@ -17,7 +17,7 @@
     <field name="name">flexwheels.car.tree</field>
     <field name="model">flexwheels.car</field>
     <field name="arch" type="xml">
-      <tree string="Channel" decoration-success="is_available" decoration-muted="not is_available">
+      <tree string="Channel" decoration-success="is_available" decoration-muted="not is_available"  default_group_by="car_type_id">
         <field name="display_name" string="Name"/>
         <field name="brand_id" string="Brand"/>
         <field name="variant" string="Variant"/>
@@ -103,33 +103,38 @@
     <field name="name">flexwheels.car.kanban</field>
     <field name="model">flexwheels.car</field>
     <field name="arch" type="xml">
-      <kanban records_draggable="False" default_group_by="car_type_id">
+      <kanban records_draggable="False">
         <field name="is_available" />
         <field name="color" />
         <templates>
           <t t-name="kanban-box" >
-            <div class="oe_kanban_global_click" t-att-style="record.is_available.raw_value ? '' : 'opacity: 0.5;'">
-              <h3>
-                <field name="display_name"/>
-              </h3>
-              <div>
-                <p>
-                  <field name="brand_id" />
-                </p>
-                <p>Price/hr:
-                  <field name="price" />
-                </p>
+            <div class="oe_kanban_global_click o_kanban_record_has_image_fill" t-att-style="record.is_available.raw_value ? '' : 'opacity: 0.5;'">
+              <div class="o_kanban_image_fill_left">
+                <img alt="Contact image" t-att-src="kanban_image('flexwheels.car', 'image', record.id.raw_value)"/>
               </div>
-              <p>Tags:
-                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
-              </p>
+              <div class="oe_kanban_details">
+                <div>
+                  <h3>
+                    <field name="display_name"/>
+                  </h3>
+                </div>
+                <div><b>
+                  <field name="brand_id" /></b>
+                </div>
+                <div><b>
+                  Price/hr:</b>
+                  <field name="price" />
+                </div>
+                <div><b>Tags:</b>
+                  <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                </div>
+              </div>
             </div>
           </t>
         </templates>
       </kanban>
     </field>
   </record>
-
   <!--Search View-->
   <record id="car_model_search" model="ir.ui.view">
     <field name="name">flexwheels.car.search</field>
@@ -141,12 +146,12 @@
         <field name="brand_id" string="Brand"/>
         <field name="variant" string="Variant"/>
         <field name="color" string="Color"/>
-        <field name="mileage" string="Mileage"/>
-        <field name="price" string="Price/hr"/>
+        <field name="mileage" string="Mileage" filter_domain="[('mileage', '>=', self)]"/>
+        <field name="price" filter_domain="[('price', '>=', self)]"/>
         <field name="fuel_type" string="Fuel Type"/>
         <field name="transmission" string="Transmission"/>
         <field name="car_type_id"/>
-        <field name="seating_capacity" string="Seating Capacity"/>
+        <field name="seating_capacity" string="Seating Capacity" filter_domain="[('seating_capacity', '>=', self)]"/>
         <field name="year_of_manufacturing" string="Model"/>
         <!--Filters-->
         <filter string="Available" name="available" domain="[('is_available', '=', True)]"/>
