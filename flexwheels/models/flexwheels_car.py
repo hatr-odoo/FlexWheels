@@ -9,6 +9,7 @@ class flexwheelsCar(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     brand_id=fields.Many2one('flexwheels.car.brand', string='Brand', required=True)
+    brand_logo = fields.Binary('flexwheels.car.brand', related='brand_id.brand_logo')
     name=fields.Char(required=True)
     image=fields.Binary(required=True, copy=False)
     car_type_id=fields.Many2one('flexwheels.car.type', string='Type of Vehicle')

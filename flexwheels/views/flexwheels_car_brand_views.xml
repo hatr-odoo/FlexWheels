@@ -18,8 +18,9 @@
     <field name="name">flexwheels.car.brand.tree</field>
     <field name="model">flexwheels.car.brand</field>
     <field name="arch" type="xml">
-      <tree string="Channel" editable="bottom">
+      <tree string="Channel">
         <field name="name" string="Brand"/>
+        <field name="brand_logo" widget="image" class="oe_avatar" options="{'size': [30, 30]}" nolabel="1"/>
       </tree>
     </field>
   </record>
@@ -33,6 +34,7 @@
         <sheet>
             <h1>
                 <field name="name" placeholder='Eg: Hyundai'/>
+                <field name="brand_logo" widget="image" class="oe_avatar" options="{'size': [100, 100]}" nolabel="1"/>
             </h1>
         </sheet>
       </form>

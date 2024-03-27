@@ -23,7 +23,6 @@
         'views/flexwheels_menus.xml',
     ],
     'demo': [
-        'demo/flexwheels.car.brand.csv',
         'demo/flexwheels.car.tag.csv',
         'demo/flexwheels.car.type.csv',
         'demo/demo_data.xml'

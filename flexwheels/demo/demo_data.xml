@@ -1,5 +1,26 @@
 <?xml version="1.0"?>
 <odoo>
+    <!-- Car brand data -->
+    <record id="car_brand_1" model="flexwheels.car.brand">
+        <field name="name">Maruti Suzuki</field>
+        <field name="brand_logo" type="base64" file="flexwheels/static/suzuki.png"/>
+    </record>
+
+    <record id="car_brand_2" model="flexwheels.car.brand">
+        <field name="name">Mahindra</field>
+        <field name="brand_logo" type="base64" file="flexwheels/static/mahindra.webp"/>
+    </record>
+
+    <record id="car_brand_3" model="flexwheels.car.brand">
+        <field name="name">Tata</field>
+        <field name="brand_logo" type="base64" file="flexwheels/static/tata.png"/>
+    </record>
+
+    <record id="car_brand_4" model="flexwheels.car.brand">
+        <field name="name">Hyundai</field>
+        <field name="brand_logo" type="base64" file="flexwheels/static/hyundai.png"/>
+    </record>
+
     <!-- Car demo data -->
     <record id="flexwheels_car_1" model="flexwheels.car">
         <field name="name">Swift</field>
@@ -23,27 +44,6 @@
         <field name="tag_ids" eval="[Command.link(ref('car_tag_6')), Command.link(ref('car_tag_7')), Command.link(ref('car_tag_10'))]"/>
     </record>
     <record id="flexwheels_car_2" model="flexwheels.car">
-        <field name="name">Creta</field>
-        <field name="brand_id" ref="car_brand_4"/>
-        <field name="image" type="base64" file="flexwheels/static/creta.webp"/>
-        <field name="car_type_id" ref="car_type_4"/>
-        <field name="kms_driven">34200</field>
-        <field name="condition">good</field>
-        <field name="price">215</field>
-        <field name="year_of_manufacturing">2017</field>
-        <field name="variant">SX(O)</field>
-        <field name="is_available">True</field>
-        <field name="color">white</field>
-        <field name="registration_number">GJ18BK9234</field>
-        <field name="chassis_number">ABZ12345CD6789013</field>
-        <field name="fuel_type">diesel</field>
-        <field name="registration_book_image" type="base64" file="flexwheels/static/rc.webp"/>
-        <field name="mileage">17</field>
-        <field name="transmission">automatic</field>
-        <field name="seating_capacity">5</field>
-        <field name="tag_ids" eval="[Command.link(ref('car_tag_2')), Command.link(ref('car_tag_11')), Command.link(ref('car_tag_13')), Command.link(ref('car_tag_14'))]"/>
-    </record>
-    <record id="flexwheels_car_3" model="flexwheels.car">
         <field name="name">XUV700</field>
         <field name="brand_id" ref="car_brand_2"/>
         <field name="image" type="base64" file="flexwheels/static/XUV700.webp"/>
@@ -64,28 +64,28 @@
         <field name="seating_capacity">7</field>
         <field name="tag_ids" eval="[Command.link(ref('car_tag_5')), Command.link(ref('car_tag_13')), Command.link(ref('car_tag_15'))]"/>
     </record>
-    <record id="flexwheels_car_4" model="flexwheels.car">
-        <field name="name">Altroz</field>
-        <field name="brand_id" ref="car_brand_3"/>
-        <field name="image" type="base64" file="flexwheels/static/altroz.jpg"/>
-        <field name="car_type_id" ref="car_type_1"/>
-        <field name="kms_driven">9500</field>
-        <field name="condition">like_new</field>
-        <field name="price">150</field>
-        <field name="year_of_manufacturing">2020</field>
-        <field name="variant">XZ</field>
+    <record id="flexwheels_car_3" model="flexwheels.car">
+        <field name="name">Creta</field>
+        <field name="brand_id" ref="car_brand_4"/>
+        <field name="image" type="base64" file="flexwheels/static/creta.webp"/>
+        <field name="car_type_id" ref="car_type_4"/>
+        <field name="kms_driven">34200</field>
+        <field name="condition">good</field>
+        <field name="price">215</field>
+        <field name="year_of_manufacturing">2017</field>
+        <field name="variant">SX(O)</field>
         <field name="is_available">True</field>
-        <field name="color">silver</field>
-        <field name="registration_number">MH05AB1234</field>
-        <field name="chassis_number">ABZ12345CD6789015</field>
+        <field name="color">white</field>
+        <field name="registration_number">GJ18BK9234</field>
+        <field name="chassis_number">ABZ12345CD6789013</field>
         <field name="fuel_type">diesel</field>
         <field name="registration_book_image" type="base64" file="flexwheels/static/rc.webp"/>
-        <field name="mileage">25</field>
-        <field name="transmission">manual</field>
+        <field name="mileage">17</field>
+        <field name="transmission">automatic</field>
         <field name="seating_capacity">5</field>
-        <field name="tag_ids" eval="[Command.link(ref('car_tag_5')), Command.link(ref('car_tag_8')), Command.link(ref('car_tag_11'))]"/>
+        <field name="tag_ids" eval="[Command.link(ref('car_tag_2')), Command.link(ref('car_tag_11')), Command.link(ref('car_tag_13')), Command.link(ref('car_tag_14'))]"/>
     </record>
-    <record id="flexwheels_car_5" model="flexwheels.car">
+    <record id="flexwheels_car_4" model="flexwheels.car">
         <field name="name">Baleno</field>
         <field name="brand_id" ref="car_brand_1"/>
         <field name="image" type="base64" file="flexwheels/static/baleno.webp"/>
@@ -105,6 +105,27 @@
         <field name="transmission">automatic</field>
         <field name="seating_capacity">5</field>
         <field name="tag_ids" eval="[Command.link(ref('car_tag_1')), Command.link(ref('car_tag_10')), Command.link(ref('car_tag_13'))]"/>
+    </record>
+    <record id="flexwheels_car_5" model="flexwheels.car">
+        <field name="name">Altroz</field>
+        <field name="brand_id" ref="car_brand_3"/>
+        <field name="image" type="base64" file="flexwheels/static/altroz.jpg"/>
+        <field name="car_type_id" ref="car_type_1"/>
+        <field name="kms_driven">9500</field>
+        <field name="condition">like_new</field>
+        <field name="price">150</field>
+        <field name="year_of_manufacturing">2020</field>
+        <field name="variant">XZ</field>
+        <field name="is_available">True</field>
+        <field name="color">silver</field>
+        <field name="registration_number">MH05AB1234</field>
+        <field name="chassis_number">ABZ12345CD6789015</field>
+        <field name="fuel_type">diesel</field>
+        <field name="registration_book_image" type="base64" file="flexwheels/static/rc.webp"/>
+        <field name="mileage">25</field>
+        <field name="transmission">manual</field>
+        <field name="seating_capacity">5</field>
+        <field name="tag_ids" eval="[Command.link(ref('car_tag_5')), Command.link(ref('car_tag_8')), Command.link(ref('car_tag_11'))]"/>
     </record>
     <record id="flexwheels_car_6" model="flexwheels.car">
         <field name="name">Venue</field>
@@ -148,13 +169,15 @@
         <field name="seating_capacity">5</field>
         <field name="tag_ids" eval="[Command.link(ref('car_tag_12')), Command.link(ref('car_tag_15')), Command.link(ref('car_tag_17'))]"/>
     </record>
+
+
     <!-- customer demo data -->
     <record id="flexwheels_customer_1" model="flexwheels.customer">
         <field name="name">Rajesh Kumar</field>
         <field name="license">DL-0619850034761</field>
         <field name="address">123, ABC Nagar</field>
         <field name="city">Delhi</field>
-        <field name="image" type="base64" file="flexwheels/static/person.jpg"/>
+        <field name="image" type="base64" file="flexwheels/static/men.jpg"/>
         <field name="license_image" type="base64" file="flexwheels/static/license.webp"/>
         <field name="state">delhi</field>
         <field name="contact_number">9876543210</field>
@@ -167,7 +190,7 @@
         <field name="license">MH-0619850034761</field>
         <field name="address">456, XYZ Street</field>
         <field name="city">Mumbai</field>
-        <field name="image" type="base64" file="flexwheels/static/person.jpg"/>
+        <field name="image" type="base64" file="flexwheels/static/women.jpg"/>
         <field name="license_image" type="base64" file="flexwheels/static/license.webp"/>
         <field name="state">maharashtra</field>
         <field name="contact_number">8765432109</field>
@@ -180,7 +203,7 @@
         <field name="license">GJ-0619850034761</field>
         <field name="address">789, PQR Colony</field>
         <field name="city">Ahmedabad</field>
-        <field name="image" type="base64" file="flexwheels/static/person.jpg"/>
+        <field name="image" type="base64" file="flexwheels/static/men.jpg"/>
         <field name="license_image" type="base64" file="flexwheels/static/license.webp"/>
         <field name="state">gujarat</field>
         <field name="contact_number">7654321098</field>
@@ -193,7 +216,7 @@
         <field name="license">KA-0619850034761</field>
         <field name="address">234, LMN Street</field>
         <field name="city">Bangalore</field>
-        <field name="image" type="base64" file="flexwheels/static/person.jpg"/>
+        <field name="image" type="base64" file="flexwheels/static/women.jpg"/>
         <field name="license_image" type="base64" file="flexwheels/static/license.webp"/>
         <field name="state">karnataka</field>
         <field name="contact_number">6543210987</field>
@@ -206,7 +229,7 @@
         <field name="license">UP-0619850034761</field>
         <field name="address">789, LMN Street</field>
         <field name="city">Lucknow</field>
-        <field name="image" type="base64" file="flexwheels/static/person.jpg"/>
+        <field name="image" type="base64" file="flexwheels/static/men.jpg"/>
         <field name="license_image" type="base64" file="flexwheels/static/license.webp"/>
         <field name="state">uttar pradesh</field>
         <field name="contact_number">5432109876</field>
@@ -219,7 +242,7 @@
         <field name="license">RJ-0619850034761</field>
         <field name="address">456, STU Colony</field>
         <field name="city">Jaipur</field>
-        <field name="image" type="base64" file="flexwheels/static/person.jpg"/>
+        <field name="image" type="base64" file="flexwheels/static/women.jpg"/>
         <field name="license_image" type="base64" file="flexwheels/static/license.webp"/>
         <field name="state">rajasthan</field>
         <field name="contact_number">4321098765</field>
@@ -232,7 +255,7 @@
         <field name="license">PB-0619850034761</field>
         <field name="address">123, GHI Street</field>
         <field name="city">Chandigarh</field>
-        <field name="image" type="base64" file="flexwheels/static/person.jpg"/>
+        <field name="image" type="base64" file="flexwheels/static/men.jpg"/>
         <field name="license_image" type="base64" file="flexwheels/static/license.webp"/>
         <field name="state">punjab</field>
         <field name="contact_number">3210987654</field>

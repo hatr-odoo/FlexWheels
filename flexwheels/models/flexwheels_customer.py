@@ -16,6 +16,7 @@ class flexwheelsCustomer(models.Model):
     city=fields.Char(required=True)
     image = fields.Binary(required=True)
     license_image = fields.Binary(required=True)
+    partner_id = fields.Many2one('res.partner')
     state=fields.Selection(required=True,
                            string="Select State",
                            selection= [

@@ -5,4 +5,5 @@ class flexwheelsCarBrand(models.Model):
     _description = "Flexwheels Car Brand Model"
     
     name = fields.Char(required=True)
+    brand_logo = fields.Binary(required=True)
     _sql_constraints=[('name_unique', 'unique(name)', 'Brand with this name already exists.')]
